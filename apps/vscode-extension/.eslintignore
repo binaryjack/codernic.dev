@@ -1,0 +1,6 @@
+dist
+node_modules
+out
+*.vsix
+vite.config.ts
+esbuild.config.mjs

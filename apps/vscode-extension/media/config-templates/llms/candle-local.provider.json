@@ -1,0 +1,11 @@
+{
+  "type": "local_candle",
+  "bind_address": "127.0.0.1:8080",
+  "compute_device": "cuda",
+  "max_concurrent_slots": 1,
+  "models": [],
+  "stream_mapping": {
+    "deltaPointer": "/response",
+    "errorPointer": "/error"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "coding": {
+    "provider": "candle-local",
+    "model": "unknown",
+    "temperature": 0.2
+  },
+  "planning": {
+    "provider": "candle-local",
+    "model": "unknown",
+    "temperature": 0.4
+  },
+  "reviewing": {
+    "provider": "candle-local",
+    "model": "unknown",
+    "temperature": 0.1
+  },
+  "chatting": {
+    "provider": "candle-local",
+    "model": "unknown",
+    "temperature": 0.7
+  }
+}
