@@ -1,0 +1,18 @@
+[package]
+name = "ai_agencee_protocol"
+version = "0.6.343"
+edition = "2024"
+description = "Core communication protocol and schemas for the Codernic AI Engine"
+license = "MIT"
+repository = "https://github.com/binaryjack/codernic.dev"
+homepage = "https://codernic.dev"
+
+[dependencies]
+jsonschema = { workspace = true }
+serde = { workspace = true, features = ["derive"] }
+serde_json = { workspace = true }
+tokio = { workspace = true, features = ["net", "io-util"] }
+async-trait = { workspace = true }
+anyhow = { workspace = true }
+tracing = { workspace = true }
+thiserror = "1.0"

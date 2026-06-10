@@ -6,17 +6,17 @@
 
 ---
 
-## 📖 Table of Contents
+## Table of Contents
 
 - [Overview](#overview)
-- [Features](#-features)
-- [Tech Stack](#-tech-stack)
-- [Getting Started](#-getting-started)
-- [Development](#-development)
-- [Building & Deployment](#-building--deployment)
-- [Testing](#-testing)
-- [Contributing](#-contributing)
-- [License](#-license)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+- [Development](#development)
+- [Building & Deployment](#building--deployment)
+- [Testing](#testing)
+- [Contributing](#contributing)
+- [License](#license)
 
 ---
 
@@ -34,22 +34,22 @@ Codernic UI is a modern React application providing the user interface for the C
 
 ---
 
-## ✨ Features
+## Features
 
 | Feature                      | Description                                            |
 | ---------------------------- | ------------------------------------------------------ |
-| ⚡ **Vite + React 19**       | Lightning-fast builds and HMR (Hot Module Replacement) |
-| 📘 **TypeScript Strict**     | 100% type-safe with zero `any` types                   |
-| 🎨 **Tailwind CSS**          | Utility-first styling with PostCSS                     |
-| 🧪 **Playwright E2E**        | Comprehensive end-to-end test coverage                 |
-| 🔄 **WebSocket Integration** | Real-time updates from backend services                |
-| ♿ **Accessibility**         | WCAG 2.1 compliant components and interactions         |
-| 🎯 **Component Library**     | Reusable, tested UI components                         |
-| 📦 **Code Splitting**        | Optimized bundle with dynamic imports                  |
+| **Vite + React 19**       | Lightning-fast builds and HMR (Hot Module Replacement) |
+| **TypeScript Strict**     | 100% type-safe with zero `any` types                   |
+| **Tailwind CSS**          | Utility-first styling with PostCSS                     |
+| **Playwright E2E**        | Comprehensive end-to-end test coverage                 |
+| **WebSocket Integration** | Real-time updates from backend services                |
+| **Accessibility**         | WCAG 2.1 compliant components and interactions         |
+| **Component Library**     | Reusable, tested UI components                         |
+| **Code Splitting**        | Optimized bundle with dynamic imports                  |
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Layer               | Technology   | Version |
 | ------------------- | ------------ | ------- |
@@ -64,7 +64,7 @@ Codernic UI is a modern React application providing the user interface for the C
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -105,7 +105,7 @@ VITE_MODEL=copilot-gpt-4o
 
 ---
 
-## 🛠️ Development
+## Development
 
 ### Project Structure
 
@@ -173,7 +173,7 @@ pnpm lint:fix
 
 ---
 
-## 🧪 Testing
+## Testing
 
 ### Run All E2E Tests
 
@@ -209,7 +209,7 @@ pnpm test:e2e:report
 
 ---
 
-## 📦 Building & Deployment
+## Building & Deployment
 
 ### Build for Production
 
@@ -252,7 +252,7 @@ VITE_ENV=production pnpm build
 
 ---
 
-## 🎯 Code Standards
+## Code Standards
 
 ### Naming Conventions
 
@@ -281,15 +281,15 @@ export interface Props {
 
 ### TypeScript Best Practices
 
-- ✅ Use `strict: true` in tsconfig
-- ✅ No `any` types — use `unknown` and narrow
-- ✅ All functions and components must be typed
-- ✅ Use discriminated unions for complex state
-- ✅ Prefer `const` over `let`
+- Use `strict: true` in tsconfig
+- No `any` types — use `unknown` and narrow
+- All functions and components must be typed
+- Use discriminated unions for complex state
+- Prefer `const` over `let`
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! See [CONTRIBUTING.md](../../CONTRIBUTING.md) for complete guidelines.
 
@@ -322,7 +322,7 @@ git push origin feat/my-feature
 
 ---
 
-## 📄 License & Legal
+## License & Legal
 
 - **License**: MIT — See [LICENSE](../../LICENSE)
 - **Contributing**: [CONTRIBUTING.md](../../CONTRIBUTING.md)
@@ -331,7 +331,7 @@ git push origin feat/my-feature
 
 ---
 
-## 💬 Support
+## Support
 
 - **Issues**: [github.com/binaryjack/ai-agencee/issues](https://github.com/binaryjack/ai-agencee/issues)
 - **Discussions**: [github.com/binaryjack/ai-agencee/discussions](https://github.com/binaryjack/ai-agencee/discussions)
@@ -339,4 +339,4 @@ git push origin feat/my-feature
 
 ---
 
-**Built with ❤️ by the AI Agencee team**
+**Built by the AI Agencee team**

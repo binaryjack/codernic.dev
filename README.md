@@ -33,19 +33,19 @@ flowchart LR
     style C stroke:#a78bfa,stroke-width:2px
 ```
 
-### 📚 Ragtime (Semantic Context Engine)
+### Ragtime (Semantic Context Engine)
 Dumping 200K tokens into an LLM context window is intellectually lazy and computationally disastrous. Ragtime is Codernic's codebase memory system. It crawls your project, computes Blake3 hashes for incremental re-indexing, extracts symbols via Tree-sitter, and builds a hybrid retrieval index combining FTS5 full-text search with BERT embedding vectors. It loads only the 2-5 files relevant to a task. Fewer tokens = smarter answers.
 
-### 📐 Erathos (Visual Grounding Layer)
+### Erathos (Visual Grounding Layer)
 Language is ambiguous. Architecture diagrams are not. Erathos allows developers to provide context to the agent in the form of UML class diagrams, architecture patterns, or data flows. Codernic uses this structured visual context to understand intent before generating code, closing the intent gap.
 
-### ⚖️ Pirsig (Quality Gate Engine)
+### Pirsig (Quality Gate Engine)
 Pirsig enforces quality as a first-class invariant. When the LLM generates a patch, Pirsig parses the AST (Abstract Syntax Tree) using Tree-sitter. It checks for hallucinated imports and project convention violations. If it finds a structural violation, it issues a "black" severity flag and the code is rejected. **Bad code never reaches disk.**
 
-### 🛡️ Galileus (Conflict Arbitration)
+### Galileus (Conflict Arbitration)
 When running parallel agents (e.g., a backend agent and a documentation agent), file conflicts are inevitable. Galileus is a Tokio actor that acts as the single source of truth for file access. Before an agent writes to a file, it must declare an intent (Read, Write, Exclusive). Galileus queues conflicting agents atomically, making parallel execution mathematically conflict-free.
 
-### 🔒 Secured FS
+### Secured FS
 Hardcoded forbidden paths. The engine physically cannot write to protected configuration or credential files regardless of LLM instructions.
 
 ---
@@ -68,7 +68,7 @@ Codernic is a headless orchestrator that brings deterministic AI into *your* edi
 
 ---
 
-## 🗺️ Roadmap (V2 Upcoming)
+## Roadmap (V2 Upcoming)
 
 While V1 strictly focuses on deterministic, offline codebase editing, our V2 roadmap expands Codernic's capabilities safely:
 - **Hybrid Search Context**: Upgrading Ragtime to combine BM25 exact-keyword lexical search with mathematical Vector embeddings.

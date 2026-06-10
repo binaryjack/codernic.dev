@@ -6,11 +6,11 @@
 
 ---
 
-## 🎯 What is Codernic?
+## What is Codernic?
 
 Codernic transforms VS Code into a complete local-first AI development environment. Write code, design specifications, and run multi-agent workflows with direct access to your codebase symbol structure — all local, offline, and secure.
 
-### 🧠 Codebase-Aware Assistant
+### Codebase-Aware Assistant
 
 Three-mode codebase assistant that is fully grounded in your real symbols and dependencies:
 
@@ -18,7 +18,7 @@ Three-mode codebase assistant that is fully grounded in your real symbols and de
 - **PLAN mode** — Design features and generate atomic specs without execution.
 - **AGENT mode** — Execute changes, run terminal actions, and write patches with supervisor checkpoints.
 
-### 🎮 Workflow Commander
+### Workflow Commander
 
 A visual interface for running task workflows and executing multi-agent DAGs:
 
@@ -28,17 +28,17 @@ A visual interface for running task workflows and executing multi-agent DAGs:
 
 ---
 
-## ✨ Key Features
+## Key Features
 
-- 🔍 **Local Code Intelligence** — Indexes your codebase (450+ files in ~1 second) using a high-performance Rust indexing engine.
-- 🔄 **Hybrid Context Strategy** — Combines a fast SQLite FTS5 symbol index with real-time file system scans for always-current results.
-- 🎨 **Visual Form Editors** — Manage agents (`.agent.json` files) and technology catalogs using structured visual forms instead of raw JSON.
-- 🌳 **Symbol Explorer** — Hierarchical view of classes, interfaces, and functions directly in the sidebar.
-- 🌐 **Polyglot Symbol Support** — Supports TypeScript, JavaScript, Python, Go, and more.
+- **Local Code Intelligence** — Indexes your codebase (450+ files in ~1 second) using a high-performance Rust indexing engine.
+- **Hybrid Context Strategy** — Combines a fast SQLite FTS5 symbol index with real-time file system scans for always-current results.
+- **Visual Form Editors** — Manage agents (`.agent.json` files) and technology catalogs using structured visual forms instead of raw JSON.
+- **Symbol Explorer** — Hierarchical view of classes, interfaces, and functions directly in the sidebar.
+- **Polyglot Symbol Support** — Supports TypeScript, JavaScript, Python, Go, and more.
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Installation
 
@@ -71,7 +71,7 @@ A visual interface for running task workflows and executing multi-agent DAGs:
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 Codernic VS Code Extension
@@ -98,7 +98,7 @@ Codernic VS Code Extension
 
 ---
 
-## ⚙️ Configuration
+## Configuration
 
 ### Extension Settings
 
@@ -115,7 +115,7 @@ Configure Codernic in your user/workspace `settings.json`:
 
 ---
 
-## 🗺️ Roadmap (V2 Upcoming)
+## Roadmap (V2 Upcoming)
 
 While V1 strictly focuses on deterministic, offline codebase editing, our V2 roadmap expands Codernic's capabilities safely:
 - **Hybrid Search Context**: Upgrading Ragtime to combine BM25 exact-keyword lexical search with mathematical Vector embeddings.
@@ -124,7 +124,7 @@ While V1 strictly focuses on deterministic, offline codebase editing, our V2 roa
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions to Codernic!
 
@@ -149,13 +149,13 @@ We welcome contributions to Codernic!
 
 ---
 
-## 📄 License
+## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
 ---
 
-## 🔗 Links
+## Links
 
 - **Website**: [codernic.dev](https://codernic.dev)
 - **GitHub**: [binaryjack/codernic.dev](https://github.com/binaryjack/codernic.dev)
