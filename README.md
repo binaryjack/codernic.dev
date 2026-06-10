@@ -9,7 +9,15 @@ Codernic is different. It is a **supervised engineering runtime** built in Rust.
 * **449 files indexed in 1.03s** (hybrid FTS5 + vector search)
 * **10 parallel agents, zero file conflicts** (mathematically guaranteed)
 * **0 hallucinated imports** (blocked by AST parsing before hitting disk)
-* **100% Local-First** (AMD ROCm, NVIDIA CUDA, Apple Metal, or CPU)
+* **Local-First & Cloud-Ready** (Ollama, LM Studio, OpenAI, Anthropic)
+
+---
+
+## 🍃 Green AI & Economic Efficiency
+
+Dumping 200,000 tokens into a cloud LLM context window is computationally disastrous, highly expensive, and ecologically irresponsible. 
+
+By applying surgical semantic context extraction via **Ragtime**, Codernic retrieves only the 2-5 files strictly required for a task. If you choose to connect Codernic to a commercial API (like OpenAI or Anthropic), you aren't just getting deterministic safety—you are generating **massive token savings**. Fewer tokens mean drastically reduced API bills and a significantly smaller carbon footprint per engineering cycle.
 
 ---
 
@@ -62,7 +70,7 @@ Codernic is a headless orchestrator that brings deterministic AI into *your* edi
 | **AST Quality Gates**| **Yes (Pirsig Engine)** | Post-run tests | None (LSP Post-disk)| None |
 | **Concurrency** | **Galileus (Actor Locks)**| Single Agent | None (Manual conflicts) | N/A |
 | **Visual Grounding**| **Erathos (UML/DAGs)** | No | No | No |
-| **Privacy / Execution** | **100% Local / GGUF** | Cloud | Cloud | Cloud |
+| **Privacy / Execution** | **Local-First / Cloud-Ready** | Cloud Only | Cloud Only | Cloud Only |
 
 *(For a detailed breakdown, see `documentation/competitor_matrix.md`)*
 

@@ -8,7 +8,7 @@
 
 ## What is Codernic?
 
-Codernic transforms VS Code into a complete local-first AI development environment. Write code, design specifications, and run multi-agent workflows with direct access to your codebase symbol structure — all local, offline, and secure.
+Codernic transforms VS Code into a complete Local-First, Cloud-Ready AI development environment. Write code, design specifications, and run multi-agent workflows with direct access to your codebase symbol structure. Connect securely to your favorite local models (Ollama, LM Studio) or commercial APIs (OpenAI, Anthropic).
 
 ### Codebase-Aware Assistant
 
@@ -31,6 +31,7 @@ A visual interface for running task workflows and executing multi-agent DAGs:
 ## Key Features
 
 - **Local Code Intelligence** — Indexes your codebase (450+ files in ~1 second) using a high-performance Rust indexing engine.
+- **Ecological Token Efficiency** — surgical context extraction loads only 2-5 files per prompt, generating massive financial savings and reducing your carbon footprint when using commercial cloud APIs.
 - **Hybrid Context Strategy** — Combines a fast SQLite FTS5 symbol index with real-time file system scans for always-current results.
 - **Visual Form Editors** — Manage agents (`.agent.json` files) and technology catalogs using structured visual forms instead of raw JSON.
 - **Symbol Explorer** — Hierarchical view of classes, interfaces, and functions directly in the sidebar.
@@ -102,14 +103,30 @@ Codernic VS Code Extension
 
 ### Extension Settings
 
-Configure Codernic in your user/workspace `settings.json`:
+Configure Codernic in your user/workspace `settings.json` to point to your preferred endpoint:
 
+**Example: Commercial API (OpenAI)**
 ```json
 {
-  "ai-agencee.model": "copilot-gpt-4o",
+  "ai-agencee.model": "gpt-4o",
+  "ai-agencee.apiKey": "sk-...",
+  "ai-agencee.endpoint": "https://api.openai.com/v1"
+}
+```
+
+**Example: Local First (Ollama / LM Studio)**
+```json
+{
+  "ai-agencee.model": "deepseek-coder",
+  "ai-agencee.endpoint": "http://localhost:11434/v1"
+}
+```
+
+You can also adjust the core Rust engine parameters:
+```json
+{
   "ai-agencee.mcpPath": "", // Detects binary automatically from workspace if blank
-  "aiAgencee.indexing.languages": ["typescript", "javascript"],
-  "ai-agencee.preferLocalModels": false
+  "aiAgencee.indexing.languages": ["typescript", "javascript", "rust"]
 }
 ```
 

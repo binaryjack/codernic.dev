@@ -15,7 +15,7 @@ It also explains *why* Codernic intentionally lacks certain popular features (li
 | **Parallel File Arbitration** | **Yes (Galileus)** | No | No (Manual conflict res) | N/A | No | No | No | Yes (Subagents) | No | No | No | No |
 | **Visual Architecture Grounding** | **Yes (Erathos)** | No | No | No | No | No | No | No | No | No | No | No |
 | **Codebase Context Strategy** | **Surgical (Ragtime)** | Deep Context Search | File references + MCP | Heuristic Tabs | Full Context Dump | Heuristic RAG | Full Sandbox Search | Semantic RAG | Full Repo Clone | Full Stack Context | Semantic RAG | None |
-| **Privacy / Local-First** | **100% Local (GGUF)**| Cloud | Local via Ollama / Cloud | Cloud (Telemetry) | Cloud | Cloud | Cloud / API | Cloud (Google VM) | Cloud | Cloud / API | Cloud |
+| **Privacy / Execution** | **Local-First / API-Ready**| Cloud | Local via Ollama / Cloud | Cloud (Telemetry) | Cloud | Cloud | Cloud / API | Cloud (Google VM) | Cloud | Cloud / API | Cloud |
 
 ---
 
@@ -50,9 +50,11 @@ Furthermore, while Zed allows running multiple agents in parallel, it relies on 
 
 ### Why we don't rely on massive context windows (vs. Claude Code)
 The current industry trend is to feed 200,000+ tokens of a codebase into an LLM. This is fundamentally counterproductive. 
-1. **Ecological Waste:** Massive token processing wastes electricity and compute resources.
-2. **Attention Degradation:** LLMs suffer from the "Lost in the Middle" phenomenon; the more context they have, the worse their reasoning becomes on specific files.
-**Codernic** uses **Ragtime** to perform surgical semantic extraction (Blake3 hashing + Tree-sitter + FTS5/BERT). It loads only the 2-5 files strictly necessary for the task. **Saving tokens saves the planet and yields more deterministic, focused AI output.**
+1. **Financial Waste:** Firing hundreds of thousands of tokens per prompt quickly drains API budgets.
+2. **Ecological Disaster:** Massive token processing wastes electricity and compute resources, severely ballooning the carbon footprint of AI development.
+3. **Attention Degradation:** LLMs suffer from the "Lost in the Middle" phenomenon; the more context they have, the worse their reasoning becomes on specific files.
+
+**Codernic** uses **Ragtime** to perform surgical semantic extraction (Blake3 hashing + Tree-sitter + FTS5/BERT). It loads only the 2-5 files strictly necessary for the task. **Saving tokens saves your wallet, saves the planet, and yields more deterministic, focused AI output.**
 
 ### Why we don't build unbounded cloud agents (vs. Devin / Jules / Antigravity)
 Software engineering is deterministic. Unbounded autonomous agents operating in cloud sandboxes tend to drift from intended architecture because they rely entirely on probabilistic reasoning.
