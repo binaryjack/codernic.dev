@@ -1,7 +1,7 @@
-import type { CodernicMode } from '../../../../../vscode-extension/src/features/codernic/model/codernic-mode.types';
+import { memo } from 'react';
+import type { CodernicMode } from '../../../../../codernic-ext/src/features/codernic/model/codernic-mode.types';
 import type {
   AgentRunState,
-  AnalyseProgressState,
   ChatMsg,
   PhaseGateState,
   ThinkingState,
@@ -10,7 +10,6 @@ import { Button, Watermark } from '../../../shared';
 import { MessageCard } from './message-card';
 import { ThinkingIndicator } from './thinking-indicator';
 import { AgentRunPanel } from '../../agent-run';
-import { AnalyseProgressPanel } from '../../analyse-progress';
 import { DagPipeline } from '../../dag-pipeline';
 
 interface MessageFeedProps {
@@ -18,8 +17,6 @@ interface MessageFeedProps {
   messages: ChatMsg[];
   agentRun: AgentRunState | null;
   onAgentRunDismiss: () => void;
-  analyseProgress: AnalyseProgressState | null;
-  onAnalyseProgressDismiss: () => void;
   phaseGate: PhaseGateState | null;
   onPhaseGateConfirm: () => void;
   onPhaseGateDismiss: () => void;
@@ -28,13 +25,11 @@ interface MessageFeedProps {
   messagesEndRef: React.RefObject<HTMLDivElement | null>;
 }
 
-export function MessageFeed({
+export const MessageFeed = memo(function MessageFeed({
   mode,
   messages,
   agentRun,
   onAgentRunDismiss,
-  analyseProgress,
-  onAnalyseProgressDismiss,
   phaseGate,
   onPhaseGateConfirm,
   onPhaseGateDismiss,
@@ -42,7 +37,7 @@ export function MessageFeed({
   thinking,
   messagesEndRef,
 }: MessageFeedProps) {
-  const isCompact = (mode === 'agent' && agentRun) || (mode === 'analyse' && analyseProgress);
+  const isCompact = (mode === 'agent' && agentRun); 
 
   return (
     <div
@@ -73,11 +68,6 @@ export function MessageFeed({
         </div>
       )}
 
-      {mode === 'analyse' && analyseProgress && (
-        <div style={{ marginTop: '16px', borderTop: '1px solid var(--border, #27272a)', paddingTop: '16px', zIndex: 1 }}>
-          <AnalyseProgressPanel progress={analyseProgress} onDismiss={onAnalyseProgressDismiss} />
-        </div>
-      )}
 
       {/* DAG node tracker */}
       <DagPipeline />
@@ -117,4 +107,4 @@ export function MessageFeed({
       <div ref={messagesEndRef} />
     </div>
   );
-}
+});

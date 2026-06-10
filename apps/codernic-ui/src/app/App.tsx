@@ -1,24 +1,20 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import type { CodernicMode } from '../../../vscode-extension/src/features/codernic/model/codernic-mode.types';
+import type { CodernicMode } from '../../../codernic-ext/src/features/codernic/model/codernic-mode.types';
 import { Accordion, Button, Watermark, vscode } from '../shared';
 import {
   addContextFile,
   appendMessage,
   clearContextFiles,
   dismissAgentRun,
-  dismissAnalyseProgress,
   dismissPhaseGate,
   removeContextFile,
   selectAgentRun,
-  selectAnalyseProgress,
+  
   selectAvailableLlms,
   selectContextFiles,
-  selectContextStats,
-  selectCostPreview,
   selectGalileusError,
   selectGalileusSnapshot,
-  selectInfraStats,
   selectIsDragging,
   selectJourneyPhase,
   selectMessages,
@@ -26,50 +22,73 @@ import {
   selectSending,
   selectSessionLlm,
   selectThinking,
+  
+  selectMetrics,
   sendIntent,
-  setCostPreview,
+  abortCurrentTask,
   setSending,
   setSessionLlm,
+  setRouteProfile,
+  setCurrentSessionId,
+  setMessages,
   setThinking,
+  setMode as setReduxMode,
+  setAppVersion,
+  selectRouteProfile,
+  selectRouteProfiles,
+  selectSessions,
+  selectCurrentSessionId,
+  selectActiveTaskId,
 } from '../entities/kernel';
 import { HeaderBar } from '../widgets/header-bar';
-import { InfraHud } from '../widgets/infra-hud';
 import { MessageFeed } from '../widgets/message-feed';
+import { SessionSelector } from '../widgets/message-feed/ui/session-selector';
+import { StatusBarFooter } from '../components/layout/StatusBarFooter';
 import { GalileusTracker } from '../widgets/galileus-tracker';
 import { SettingsPanel } from '../features/settings';
 import { ContextBadgeList, useFileDrop } from '../features/context-files';
 import { ChatInput } from '../features/chat-input';
+import { ApprovalModal } from '../widgets/dag-pipeline/ui/ApprovalModal';
+import { ArtifactModal } from '../features/artifact-negotiation/ArtifactModal';
+import { WorkspaceLayout } from '../shared/ui/workspace-layout';
+import { MenuBar } from '../widgets/menu-bar';
+import { LeftPanel } from '../widgets/left-panel';
+import { RightPanel } from '../widgets/right-panel';
 
 export function App() {
   const dispatch = useDispatch();
 
   // SELECTORS
   const availableLlms = useSelector(selectAvailableLlms);
-  const costPreview = useSelector(selectCostPreview);
   const sessionLlm = useSelector(selectSessionLlm);
+  const routeProfiles = useSelector(selectRouteProfiles);
+  const routeProfile = useSelector(selectRouteProfile);
   const messages = useSelector(selectMessages);
   const sending = useSelector(selectSending);
   const thinking = useSelector(selectThinking);
   const agentRun = useSelector(selectAgentRun);
-  const analyseProgress = useSelector(selectAnalyseProgress);
   const phaseGate = useSelector(selectPhaseGate);
   const journeyPhase = useSelector(selectJourneyPhase);
-  const infraStats = useSelector(selectInfraStats);
-  const contextStats = useSelector(selectContextStats);
   const galileusSnapshot = useSelector(selectGalileusSnapshot);
   const galileusError = useSelector(selectGalileusError);
   const contextFiles = useSelector(selectContextFiles);
   const isDragging = useSelector(selectIsDragging);
+  const sessions = useSelector(selectSessions);
+  const currentSessionId = useSelector(selectCurrentSessionId);
+  const metrics = useSelector(selectMetrics);
+  const activeTaskId = useSelector(selectActiveTaskId);
+
+  // Layout State
+  const [isLeftOpen, setIsLeftOpen] = useState(true);
+  const [isRightOpen, setIsRightOpen] = useState(true);
 
   // LOCAL STATES
   const [mode, setMode] = useState<CodernicMode>('ask');
   const [showSettings, setShowSettings] = useState(false);
-  const [input, setInput] = useState('');
-  const [promptHistory, setPromptHistory] = useState<string[]>([]);
-  const [historyIdx, setHistoryIdx] = useState(-1);
-  const [savedDraft, setSavedDraft] = useState('');
   const [missingEnvPkgs, setMissingEnvPkgs] = useState<string[] | null>(null);
   const [isAutoPilot, setIsAutoPilot] = useState(false);
+  const [useRag, setUseRag] = useState(true);
+  const [isCreatingNewSession, setIsCreatingNewSession] = useState(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -85,6 +104,7 @@ export function App() {
     vscode.postMessage({ type: 'codernic:get-last-mode' });
     vscode.postMessage({ type: 'codernic:get-env-check' });
     vscode.postMessage({ type: 'codernic:request-llms' });
+    dispatch(sendIntent({ type: 'codernic:get-sessions' }));
   }, []);
 
   // Listen to messages from VS Code
@@ -93,8 +113,12 @@ export function App() {
       const msg = e.data;
       if (msg.type === 'codernic:last-mode' && msg.payload?.mode) {
         setMode(msg.payload.mode);
+        dispatch(setReduxMode(msg.payload.mode));
       } else if (msg.type === 'codernic:env-check') {
         setMissingEnvPkgs(msg.payload?.missing || []);
+        if (msg.payload?.version) {
+          dispatch(setAppVersion(msg.payload.version));
+        }
       } else if (msg.type === 'CODERNIC_CONTEXT_ADD_FILE') {
         const fileName = msg.filePath.split(/[/\\]/).pop() || msg.filePath;
         dispatch(
@@ -111,8 +135,14 @@ export function App() {
     return () => window.removeEventListener('message', handleMessage);
   }, [dispatch]);
 
-  const handleSend = () => {
-    const text = input.trim();
+  const handleNewSession = () => {
+    dispatch(setMessages([]));
+    dispatch(setCurrentSessionId(null));
+    setIsCreatingNewSession(true);
+    // Focus chat input if we had a ref to it, but the empty state acts as the session creation trigger.
+  };
+
+  const handleSend = (text: string) => {
     if (!text || sending) return;
     if (!sessionLlm) {
       dispatch(
@@ -124,10 +154,6 @@ export function App() {
       );
       return;
     }
-    setPromptHistory((prev) => [...prev, text]);
-    setHistoryIdx(-1);
-    setSavedDraft('');
-    setInput('');
     dispatch(appendMessage({ id: Math.random().toString(), role: 'user', text }));
     dispatch(setSending(true));
     dispatch(setThinking({ phase: 'thinking' }));
@@ -137,35 +163,19 @@ export function App() {
       .map((m) => ({ role: m.role as 'user' | 'assistant', text: m.text }));
     history.push({ role: 'user', text });
 
-    const payload =
-      mode === 'plan'
-        ? { task: text, mode, llmId: sessionLlm, contextFiles }
-        : { llmId: sessionLlm, history, mode, contextFiles };
+    const isPlanGenRequest = mode === 'agent' && !!agentRun && agentRun.status === 'running';
 
-    dispatch(
-      sendIntent({
-        type: mode === 'plan' ? 'codernic:generate' : 'codernic:chat',
-        payload,
-      }),
-    );
-  };
-
-  const handleApplyCostPreview = () => {
-    if (costPreview) {
-      dispatch(
-        sendIntent({
-          type: 'codernic:run-dag-direct',
-          payload: { plan: costPreview.plan, task: costPreview.task },
-        }),
-      );
-      setMode('agent');
-      vscode.postMessage({ type: 'codernic:set-last-mode', payload: { mode: 'agent' } });
+    let activeSessionId = currentSessionId;
+    if (!activeSessionId) {
+      activeSessionId = crypto.randomUUID ? crypto.randomUUID() : `session-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+      dispatch(setCurrentSessionId(activeSessionId));
     }
-    dispatch(setCostPreview(null));
-  };
 
-  const handleCancelCostPreview = () => {
-    dispatch(setCostPreview(null));
+    const payload = isPlanGenRequest
+      ? { task: text, mode, llmId: sessionLlm, contextFiles, routeProfile, sessionId: activeSessionId, useRag, yolo: isAutoPilot }
+      : { llmId: sessionLlm, history, mode, contextFiles, routeProfile, sessionId: activeSessionId, useRag, yolo: isAutoPilot };
+
+    dispatch(sendIntent({ type: 'codernic:chat', payload }));
   };
 
   if (missingEnvPkgs && missingEnvPkgs.length > 0) {
@@ -212,166 +222,127 @@ export function App() {
     );
   }
 
+  const currentSessionName = sessions.find((s) => s.id === currentSessionId)?.name;
+
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        height: '100vh',
-        width: '100%',
-        overflow: 'hidden',
-        background: 'var(--vscode-editor-background)',
-        position: 'relative',
-        border: isDragging ? '2px dashed var(--vscode-focusBorder, #007acc)' : 'none',
-        boxSizing: 'border-box',
-      }}
-    >
-      <HeaderBar
-        mode={mode}
-        onModeChange={(m) => {
-          setMode(m);
-          vscode.postMessage({ type: 'codernic:set-last-mode', payload: { mode: m } });
-        }}
-        journeyPhase={journeyPhase}
-        llmLoading={availableLlms.length === 0}
-        llmOptions={availableLlms}
-        sessionLlm={sessionLlm}
-        onLlmChange={(l) => dispatch(setSessionLlm(l))}
-        contextWindowUI={
-          contextStats
-            ? {
-                currentTokens: contextStats.current_tokens,
-                maxTokens: contextStats.max_tokens,
-                usagePercent: contextStats.usage_percent,
-                costEstimate: 0,
-                lastUpdated: new Date().toISOString(),
-                optimizedTurnCount: contextStats.turn_count,
-                removedTurnsCount: 0,
-                compressionRatio: 1,
-                atCapacity: contextStats.usage_percent >= 100,
-                statusMessage: '',
-                recommendations: [],
-              }
-            : null
-        }
-        onContextWarning={(s) =>
-          dispatch(
-            appendMessage({
-              id: Math.random().toString(),
-              role: 'system',
-              text: s === 'critical' ? '🔴 Critical: Context 95% full!' : '🟡 Warning: Context 85% full.',
-            }),
-          )
-        }
-        onSettingsToggle={() => setShowSettings(!showSettings)}
-        isAutoPilot={isAutoPilot}
-        onAutopilotToggle={() => setIsAutoPilot(!isAutoPilot)}
-      />
-
-      <InfraHud infra={infraStats} context={contextStats} />
-
-      <main
-        style={{
-          flex: 1,
-          minHeight: 0,
-          overflowY: 'auto',
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-      >
-        {showSettings ? (
-          <SettingsPanel onClose={() => setShowSettings(false)} />
-        ) : (
-          <MessageFeed
-            mode={mode}
-            messages={messages}
-            agentRun={agentRun}
-            onAgentRunDismiss={() => dispatch(dismissAgentRun())}
-            analyseProgress={analyseProgress}
-            onAnalyseProgressDismiss={() => dispatch(dismissAnalyseProgress())}
-            phaseGate={phaseGate}
-            onPhaseGateConfirm={() => {
-              dispatch(sendIntent({ type: 'codernic:journey-confirm-phase' }));
+    <WorkspaceLayout
+      isLeftOpen={isLeftOpen}
+      isRightOpen={isRightOpen}
+      onToggleLeft={() => setIsLeftOpen(!isLeftOpen)}
+      onToggleRight={() => setIsRightOpen(!isRightOpen)}
+      headerBar={
+        <MenuBar 
+          title="Codernic" 
+          onToggleLeft={() => setIsLeftOpen(!isLeftOpen)}
+          onOpenLeft={() => setIsLeftOpen(true)}
+          onNewSession={handleNewSession}
+        />
+      }
+      leftPanel={
+        <LeftPanel
+          onSettingsClick={() => setShowSettings(!showSettings)}
+        />
+      }
+      centerPanel={
+        <div
+          className="flex flex-col h-full w-full relative"
+          style={{
+            border: isDragging ? '2px dashed var(--vscode-focusBorder, #007acc)' : 'none',
+          }}
+        >
+          <HeaderBar
+            sessionName={currentSessionName}
+            onSettingsToggle={() => {
+              setShowSettings(!showSettings);
             }}
-            onPhaseGateDismiss={() => dispatch(dismissPhaseGate())}
-            sending={sending}
-            thinking={thinking}
-            messagesEndRef={messagesEndRef}
+            onNewSession={handleNewSession}
           />
-        )}
-      </main>
 
-      {!showSettings && (
-        <footer style={{ flexShrink: 0, width: '100%' }}>
-          {costPreview && (
-            <div
-              style={{
-                padding: '12px',
-                borderTop: '1px solid var(--border, #27272a)',
-                background: '#131316',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '8px',
-              }}
-            >
-              <div style={{ fontSize: '10px', color: '#fbbf24', fontWeight: 'bold', fontFamily: 'var(--mono)', textTransform: 'uppercase' }}>
-                💰 Cost Preview — {costPreview.cost} · {costPreview.duration}
-              </div>
-              <pre
-                style={{
-                  margin: 0,
-                  fontSize: '11px',
-                  fontFamily: 'var(--mono)',
-                  overflowY: 'auto',
-                  maxHeight: '100px',
-                  whiteSpace: 'pre-wrap',
-                  color: '#fbbf24',
-                  background: '#09090b',
-                  padding: '8px',
-                  borderRadius: '4px',
-                  border: '1px solid rgba(251, 191, 36, 0.2)',
+          <main className="flex-1 min-h-0 overflow-y-auto w-full flex flex-col">
+            {showSettings ? (
+              <SettingsPanel onClose={() => setShowSettings(false)} />
+            ) : messages.length === 0 && sessions.length > 0 && !isCreatingNewSession ? (
+              <SessionSelector 
+                sessions={sessions} 
+                onSelect={(id) => dispatch(sendIntent({ type: 'codernic:load-session', payload: { id } }))} 
+                onNew={handleNewSession}
+                onDelete={(id) => dispatch(sendIntent({ type: 'codernic:delete-session', payload: { id } }))}
+              />
+            ) : (
+              <MessageFeed
+                mode={mode}
+                messages={messages}
+                agentRun={agentRun}
+                onAgentRunDismiss={() => dispatch(dismissAgentRun())}
+                phaseGate={phaseGate}
+                onPhaseGateConfirm={() => dispatch(sendIntent({ type: 'codernic:journey-confirm-phase' }))}
+                onPhaseGateDismiss={() => dispatch(dismissPhaseGate())}
+                sending={sending}
+                thinking={thinking}
+                messagesEndRef={messagesEndRef}
+              />
+            )}
+          </main>
+
+          {!showSettings && (
+            <footer className="flex-shrink-0 w-full">
+              <ContextBadgeList
+                files={contextFiles}
+                onRemoveFile={(id) => dispatch(removeContextFile(id))}
+                onClearAll={() => dispatch(clearContextFiles())}
+              />
+              <ChatInput
+                mode={mode}
+                onSend={handleSend}
+                sending={sending}
+                onModeChange={(m) => {
+                  setMode(m);
+                  dispatch(setReduxMode(m));
+                  vscode.postMessage({ type: 'codernic:set-last-mode', payload: { mode: m } });
                 }}
-              >
-                {costPreview.plan}
-              </pre>
-              <div style={{ display: 'flex', gap: '8px' }}>
-                <Button onClick={handleApplyCostPreview} variant="primary" style={{ flex: 1 }}>
-                  ✅ Apply Changes
-                </Button>
-                <Button onClick={handleCancelCostPreview} variant="secondary">
-                  Cancel
-                </Button>
-              </div>
-            </div>
+                journeyPhase={journeyPhase}
+                llmLoading={availableLlms.length === 0}
+                llmOptions={availableLlms}
+                sessionLlm={sessionLlm}
+                onLlmChange={(l) => dispatch(setSessionLlm(l))}
+                routeProfiles={routeProfiles}
+                routeProfile={routeProfile}
+                onRouteProfileChange={(p) => {
+                  dispatch(setRouteProfile(p));
+                  vscode.postMessage({ type: 'codernic:set-route-profile', payload: { profile: p } });
+                }}
+                isAutoPilot={isAutoPilot}
+                onAutopilotToggle={() => setIsAutoPilot(!isAutoPilot)}
+                useRag={useRag}
+                onUseRagToggle={() => setUseRag(!useRag)}
+                  metrics={metrics}
+                onAbort={() => {
+                  if (activeTaskId) {
+                    dispatch(sendIntent({ type: 'codernic:abort-task', payload: { task_id: activeTaskId } }));
+                  }
+                  dispatch(abortCurrentTask());
+                }}
+              />
+            </footer>
           )}
 
-          <ContextBadgeList
-            files={contextFiles}
-            onRemoveFile={(id) => dispatch(removeContextFile(id))}
-            onClearAll={() => dispatch(clearContextFiles())}
-          />
-
-          <ChatInput
-            mode={mode}
-            input={input}
-            onInputChange={setInput}
-            onSend={handleSend}
-            sending={sending}
-            promptHistory={promptHistory}
-            historyIdx={historyIdx}
-            onHistoryIdxChange={setHistoryIdx}
-            savedDraft={savedDraft}
-            onSavedDraftChange={setSavedDraft}
-          />
-        </footer>
-      )}
-
-      {!showSettings && (
-        <Accordion label="🛰️ Galileus Sequence Tracker">
-          <GalileusTracker snapshot={galileusSnapshot} error={galileusError} />
-        </Accordion>
-      )}
-    </div>
+          <ApprovalModal />
+          <ArtifactModal />
+        </div>
+      }
+      rightPanel={<RightPanel />}
+      footerBar={
+        <div className="w-full flex flex-col bg-[#09090b] z-40 border-t border-[#27272a]">
+          {!showSettings && (
+            <div className="px-2">
+              <Accordion label="🛰️ Galileus Sequence Tracker">
+                <GalileusTracker snapshot={galileusSnapshot} error={galileusError} />
+              </Accordion>
+            </div>
+          )}
+          <StatusBarFooter />
+        </div>
+      }
+    />
   );
 }

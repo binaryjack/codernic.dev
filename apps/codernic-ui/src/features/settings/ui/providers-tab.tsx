@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import type { LlmProvider } from '../../../../../vscode-extension/src/features/codernic/model/llm.types';
-import { CONFIG } from '../../../../../vscode-extension/src/shared/config';
+import type { LlmProvider } from '../../../../../codernic-ext/src/features/codernic/model/llm.types';
+import { CONFIG } from '../../../../../codernic-ext/src/shared/config';
 import { Button, vscode } from '../../../shared';
 import { ProviderCard } from './provider-card';
 import { ProviderConfigForm } from './provider-config-form';
@@ -49,9 +49,15 @@ export function ProvidersTab() {
     };
     vscode.postMessage({
       type: 'codernic:save-llm-provider',
-      payload: { provider: providerObj, apiKey: newProvider.apiKey },
+      payload: {
+        provider: providerObj,
+        apiKey: newProvider.apiKey,
+        // Pass the original ID so the backend can delete the old file if the slug changed
+        originalId: editingProviderId ?? undefined,
+      },
     });
   };
+
 
   const handleTestConnection = async (p: LlmProvider) => {
     if (p.type === 'local-managed-llama') {
@@ -97,12 +103,6 @@ export function ProvidersTab() {
             key={p.id}
             provider={p}
             testStatus={testStatus[p.id]}
-            onKillAll={() =>
-              vscode.postMessage({
-                type: 'codernic:managed-llm-command',
-                payload: { providerId: p.id, action: 'kill' },
-              })
-            }
             onTest={() => handleTestConnection(p)}
             onEdit={() => {
               setNewProvider({ ...p, apiKey: '' });
@@ -132,9 +132,6 @@ export function ProvidersTab() {
             setEditingProviderId(null);
             setNewProvider(DEFAULT_PROVIDER);
           }}
-          onBrowse={(key, title) =>
-            vscode.postMessage({ type: 'codernic:browse-file', payload: { key, title } })
-          }
         />
       ) : (
         <Button

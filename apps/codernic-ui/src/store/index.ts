@@ -6,6 +6,8 @@ import kernelReducer, {
   rootTelemetrySaga,
   rootGalileusSaga,
 } from '../entities/kernel';
+import telemetryReducer from '../entities/telemetry/model/telemetry-slice';
+import assetsReducer from '../entities/assets/model/assets-slice';
 
 function* rootSaga() {
   yield all([fork(rootKernelSaga), fork(rootTelemetrySaga), fork(rootGalileusSaga)]);
@@ -16,6 +18,8 @@ const sagaMiddleware = createSagaMiddleware();
 export const store = configureStore({
   reducer: {
     kernel: kernelReducer,
+    telemetry: telemetryReducer,
+    assets: assetsReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ thunk: false, serializableCheck: false }).concat(sagaMiddleware),

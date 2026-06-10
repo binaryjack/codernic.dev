@@ -1,4 +1,4 @@
-import type { AnalyseStepStatus } from '../../../../../vscode-extension/src/features/codernic/model/analyse-runner';
+import type { AnalyseStepStatus } from '../../../../../codernic-ext/src/features/codernic/model/analyse-runner';
 
 export interface DiagnosticInfo {
   code: string;
@@ -37,9 +37,19 @@ export type AssistantMsg = {
   streaming?: boolean;
   diagnostic?: DiagnosticInfo;
   toolCalls?: ToolCall[];
+  metrics?: InferenceMetrics;
 };
 
-export type ChatMsg = SystemMsg | UserMsg | AssistantMsg;
+export type PlanCtaMsg = {
+  id: string;
+  role: 'plan-cta';
+  text: string;
+  cost: string;
+  duration: string;
+  task: string;
+};
+
+export type ChatMsg = SystemMsg | UserMsg | AssistantMsg | PlanCtaMsg;
 
 export type SelectOption = {
   value: string;
@@ -47,10 +57,17 @@ export type SelectOption = {
   group?: string;
 };
 
-export type PhaseGateState = {
+export interface PhaseGateState {
   phase: number;
   summary: string;
-};
+}
+
+export interface InferenceMetrics {
+  ttft_ms: number;
+  tokens_per_second: number;
+  vram_allocated_bytes: number;
+  context_tokens_count: number;
+}
 
 export type CostPreview = {
   task: string;
@@ -79,7 +96,15 @@ export type AgentRunState = {
   status: 'running' | 'success' | 'failed' | 'partial';
 };
 
-// ANALYSE TYPES
+export interface AgentIntrospectionEvent {
+  type: 'step_start' | 'step_success' | 'step_retry' | 'ToolExecutionResult' | 'agent-thinking-stream' | string;
+  step_id?: string;
+  delta?: string;
+  payload?: any;
+  timestamp: number;
+}
+
+// ANALYSE & PIRSIG TYPES
 export type AnalyseStep = 'tech-identification' | 'convention-mining' | 'agent-generation';
 export type AnalyseProgressState = {
   steps: Record<AnalyseStep, AnalyseStepStatus>;
@@ -87,6 +112,19 @@ export type AnalyseProgressState = {
   totalCostUSD: number;
   errorMessage?: string;
   profile?: string;
+};
+
+export interface PirsigMetrics {
+  kpi_score: number;
+  symbols_count: number;
+  qualitative_flags: string[] | null;
+}
+
+// RAG TYPES
+export type RagProgressState = {
+  filesIndexed: number;
+  totalFiles: number;
+  percentage: number;
 };
 
 // GALILEUS TYPES
@@ -145,4 +183,12 @@ export interface CodernicContextFile {
   filePath: string;
   fileName: string;
   lines?: [number, number];
+}
+
+// SESSIONS
+export interface SessionMeta {
+  id: string;
+  name: string;
+  status: 'idle' | 'running';
+  last_updated: number;
 }

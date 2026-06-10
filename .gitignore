@@ -1,23 +1,54 @@
-node_modules
+# Dependencies and Build Outputs
+node_modules/
 **/dist/
 target/
 coverage/
 *.tsbuildinfo
-
-# Local runtime & generated files
-.agencee/code-index.db
-.agencee/code-index.db-shm
-.agencee/code-index.db-wal
-.agencee/galileus.db*
-.agencee/runtime/
 _dev-server.log
 
-# Private monorepo (local workspace only)
+# Large binary / build artifacts
+**/*.vsix
+**/*.tar.gz
+**/*.tar.bz2
+**/*.tar.xz
+**/*.zip
+**/*.msi
+**/*.exe
+**/*.AppImage
+
+# Compiled native addons / shared libraries
+**/*.node
+**/*.so
+**/*.dylib
+**/*.dll
+
+# ML model weights (never commit these)
+**/*.gguf
+**/*.onnx
+**/*.safetensors
+**/*.bin
+**/*.pt
+**/*.pth
+
+# Local runtime, logs, & workspace-private files
 _private/
-.agencee/code-index*
-apps/vscode-extension/codernic-ext-*
-.continue/*
-.continue
-.config/*
-.config
-models/*
+.continue/
+.config/
+models/
+.agencee_state.db
+*.txn
+.DS_Store
+Thumbs.db
+
+# .agencee exclusion and inclusion rules
+# Ignore everything in .agencee by default...
+.agencee/*
+# ...but allow tracking of configuration and workflows
+!.agencee/config/
+!.agencee/flows/
+
+# Exclude project-specific intelligence diagnostics, runtime histories, and state
+.agencee/config/intelligence/
+.agencee/.chat_history.json
+.agencee/codernic-raw-llm-dump.log
+.agencee_state.db

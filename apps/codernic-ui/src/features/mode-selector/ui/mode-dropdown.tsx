@@ -1,5 +1,5 @@
-import type { CodernicMode } from '../../../../../vscode-extension/src/features/codernic/model/codernic-mode.types';
-import { getModeLabel } from '../../../../../vscode-extension/src/features/codernic/model/codernic-mode.types';
+import type { CodernicMode } from '../../../../../codernic-ext/src/features/codernic/model/codernic-mode.types';
+import { getModeLabel } from '../../../../../codernic-ext/src/features/codernic/model/codernic-mode.types';
 import { Select } from '../../../shared';
 
 const MODE_COLORS: Record<CodernicMode, string> = {

@@ -1,12 +1,28 @@
-import type { ContextStats, InfraStats } from '../../../entities/kernel';
+import type { ContextStats, InfraStats, InferenceMetrics } from '../../../entities/kernel';
 
 interface InfraHudProps {
   infra: InfraStats | null;
   context: ContextStats | null;
+  metrics?: InferenceMetrics | null;
 }
 
-export function InfraHud({ infra, context }: InfraHudProps) {
-  if (!infra && !context) return null;
+import { useEffect } from 'react';
+
+export function InfraHud({ infra, context, metrics }: InfraHudProps) {
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetch('http://localhost:11434/metrics')
+        .then(res => res.json())
+        .then(data => {
+          // Normally we'd dispatch this to redux, but for now we just poll silently
+          console.log('Polled metrics:', data);
+        })
+        .catch(err => console.debug('Metrics endpoint not ready:', err));
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  if (!infra && !context && !metrics) return null;
 
   const vramPercent = infra ? (infra.vram_used / infra.vram_total) * 100 : 0;
   const isVramHigh = vramPercent > 85;
@@ -76,6 +92,24 @@ export function InfraHud({ infra, context }: InfraHudProps) {
           </div>
         </div>
       </div>
+
+      {/* METRICS SECTION */}
+      {metrics && (
+        <div style={{ display: 'flex', justifyContent: 'space-between', gap: '16px', marginTop: '4px' }}>
+          <div style={{ flex: 1, display: 'flex', justifyContent: 'space-between', color: '#a1a1aa', fontWeight: 600 }}>
+            <span style={{ fontSize: '9px', letterSpacing: '0.05em' }}>⏱️ TTFT</span>
+            <span style={{ color: '#10b981', fontFamily: 'var(--mono)' }}>
+              {metrics.ttft_ms} ms
+            </span>
+          </div>
+          <div style={{ flex: 1, display: 'flex', justifyContent: 'space-between', color: '#a1a1aa', fontWeight: 600 }}>
+            <span style={{ fontSize: '9px', letterSpacing: '0.05em' }}>🚀 SPEED</span>
+            <span style={{ color: '#8b5cf6', fontFamily: 'var(--mono)' }}>
+              {metrics.tokens_per_second.toFixed(1)} t/s
+            </span>
+          </div>
+        </div>
+      )}
 
       {infra && infra.vram_available < 1.0 && (
         <div

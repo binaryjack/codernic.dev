@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 interface AccordionProps {
-  label: string;
+  label: React.ReactNode;
   actions?: React.ReactNode;
   children: React.ReactNode;
   defaultOpen?: boolean;
@@ -15,11 +15,13 @@ export function Accordion({ label, actions, children, defaultOpen = false }: Acc
       className="shared-accordion"
       style={{
         border: '1px solid var(--border, #27272a)',
-        borderRadius: '6px',
+        borderRadius: '8px',
         overflow: 'hidden',
-        background: '#161618',
+        background: 'rgba(9, 9, 11, 0.95)',
+        backdropFilter: 'blur(8px)',
         margin: '8px 0',
-        transition: 'border-color 0.2s ease',
+        transition: 'all 0.2s ease',
+        boxShadow: isOpen ? '0 -10px 20px rgba(0,0,0,0.4), 0 0 10px rgba(34,211,238,0.05)' : 'none',
       }}
     >
       <div
@@ -30,10 +32,10 @@ export function Accordion({ label, actions, children, defaultOpen = false }: Acc
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          background: '#1e1e20',
+          background: 'rgba(255,255,255,0.02)',
           fontWeight: 600,
           fontSize: '11px',
-          color: 'var(--text-h)',
+          color: isOpen ? 'var(--vscode-foreground)' : 'var(--vscode-descriptionForeground)',
           borderBottom: isOpen ? '1px solid var(--border, #27272a)' : 'none',
         }}
       >
@@ -45,11 +47,12 @@ export function Accordion({ label, actions, children, defaultOpen = false }: Acc
               transition: 'transform 0.2s ease',
               fontSize: '8px',
               opacity: 0.6,
+              color: 'var(--vscode-textLink-foreground)',
             }}
           >
             ▶
           </span>
-          <span>{label}</span>
+          <span className="tracking-wide">{label}</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           {actions}
@@ -60,7 +63,6 @@ export function Accordion({ label, actions, children, defaultOpen = false }: Acc
           className="accordion-content"
           style={{
             padding: '12px',
-            background: 'var(--vscode-editor-background)',
             fontSize: '12px',
           }}
         >

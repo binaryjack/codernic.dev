@@ -2,13 +2,15 @@ import { useState } from 'react';
 
 import { ModelsTab } from './models-tab';
 import { ProvidersTab } from './providers-tab';
+import { RulesTab } from './rules-tab';
+import { PromptsTab } from './prompts-tab';
 
 interface SettingsPanelProps {
   onClose: () => void;
 }
 
 export function SettingsPanel({ onClose }: SettingsPanelProps) {
-  const [activeTab, setActiveTab] = useState<'providers' | 'models'>('providers');
+  const [activeTab, setActiveTab] = useState<'providers' | 'models' | 'rules' | 'prompts'>('providers');
 
   const tabButtonStyle = (isActive: boolean): React.CSSProperties => ({
     background: 'none',
@@ -77,11 +79,25 @@ export function SettingsPanel({ onClose }: SettingsPanelProps) {
         >
           Models
         </button>
+        <button
+          onClick={() => setActiveTab('rules')}
+          style={tabButtonStyle(activeTab === 'rules')}
+        >
+          Rules
+        </button>
+        <button
+          onClick={() => setActiveTab('prompts')}
+          style={tabButtonStyle(activeTab === 'prompts')}
+        >
+          Prompts
+        </button>
       </div>
 
       <div className="settings-scroll-container" style={{ overflowY: 'auto' }}>
         {activeTab === 'providers' && <ProvidersTab />}
         {activeTab === 'models' && <ModelsTab />}
+        {activeTab === 'rules' && <RulesTab />}
+        {activeTab === 'prompts' && <PromptsTab />}
       </div>
     </div>
   );

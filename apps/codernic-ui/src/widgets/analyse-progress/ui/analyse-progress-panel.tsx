@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import type { AnalyseStepStatus } from '../../../../../vscode-extension/src/features/codernic/model/analyse-runner';
+import type { AnalyseStepStatus } from '../../../../../codernic-ext/src/features/codernic/model/analyse-runner';
 import type { AnalyseProgressState, AnalyseStep } from '../../../entities/kernel';
 import { Button } from '../../../shared';
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import type { LlmModel, LlmProvider, ManagedLlmStatus } from '../../../../../vscode-extension/src/features/codernic/model/llm.types';
-import { CONFIG } from '../../../../../vscode-extension/src/shared/config';
+import type { LlmModel, LlmProvider } from '../../../../../codernic-ext/src/features/codernic/model/llm.types';
+import { CONFIG } from '../../../../../codernic-ext/src/shared/config';
 import { vscode } from '../../../shared';
 import { ModelCard } from './model-card';
 import { ModelConfigForm } from './model-config-form';
@@ -26,26 +26,6 @@ export function ModelsTab() {
   );
   const [newModel, setNewModel] = useState<LlmModel>(DEFAULT_MODEL);
   const [testStatus, setTestStatus] = useState<Record<string, string>>({});
-  const [serverStatus, setServerStatus] = useState<Record<string, ManagedLlmStatus>>({});
-
-  useEffect(() => {
-    const pollInterval = setInterval(() => {
-      providers.forEach((p) => {
-        if (p.type === 'local-managed-llama') {
-          p.models?.forEach((m) => {
-            const status = serverStatus[`${p.id}:${m.id}`]?.status;
-            if (status === 'loading' || status === 'starting') {
-              vscode.postMessage({
-                type: 'codernic:managed-llm-command',
-                payload: { providerId: p.id, modelId: m.id, action: 'status' },
-              });
-            }
-          });
-        }
-      });
-    }, 3000);
-    return () => clearInterval(pollInterval);
-  }, [providers, serverStatus]);
 
   useEffect(() => {
     vscode.postMessage({ type: 'codernic:get-llm-config' });
@@ -53,20 +33,6 @@ export function ModelsTab() {
       if (e.data.type === 'codernic:llm-config') {
         const configProviders = e.data.payload.providers as LlmProvider[];
         setProviders(configProviders);
-        configProviders.forEach((p) => {
-          if (p.type === 'local-managed-llama') {
-            p.models?.forEach((m) => {
-              vscode.postMessage({
-                type: 'codernic:managed-llm-command',
-                payload: { providerId: p.id, modelId: m.id, action: 'status' },
-              });
-            });
-          }
-        });
-      }
-      if (e.data.type === 'codernic:managed-llm-status') {
-        const { providerId, modelId, status, error } = e.data.payload;
-        setServerStatus((prev) => ({ ...prev, [`${providerId}:${modelId}`]: { status, error } }));
       }
       if (e.data.type === 'codernic:file-selected') {
         const { path, key } = e.data.payload;
@@ -112,20 +78,6 @@ export function ModelsTab() {
     setIsAddingTo(providerId);
     setEditingModel({ ...model, originalId: model.id });
     setNewModel({ ...model });
-  };
-
-  const handleLlmCommand = (
-    providerId: string,
-    modelId: string,
-    action: 'start' | 'kill' | 'status',
-  ) => {
-    if (action === 'start') {
-      setServerStatus((prev) => ({ ...prev, [`${providerId}:${modelId}`]: { status: 'loading' } }));
-    }
-    vscode.postMessage({
-      type: 'codernic:managed-llm-command',
-      payload: { providerId, modelId, action },
-    });
   };
 
   const handleTestConnection = async (p: LlmProvider, m: LlmModel) => {
@@ -188,17 +140,11 @@ export function ModelsTab() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
               {p.models?.map((m) => {
                 const key = `${p.id}:${m.id}`;
-                const status = serverStatus[key]?.status || 'stopped';
                 return (
                   <ModelCard
                     key={m.id}
-                    provider={p}
                     model={m}
-                    status={status}
-                    error={serverStatus[key]?.error}
                     testStatus={testStatus[key]}
-                    onStart={() => handleLlmCommand(p.id, m.id, 'start')}
-                    onKill={() => handleLlmCommand(p.id, m.id, 'kill')}
                     onTest={() => handleTestConnection(p, m)}
                     onEdit={() => handleEditModel(p.id, m)}
                     onDelete={() => {

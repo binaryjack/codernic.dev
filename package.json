@@ -4,11 +4,18 @@
   "description": "Enterprise AI Orchestration Platform (Rust Engine + VS Code Client)",
   "scripts": {
     "build:engine": "cargo build",
-    "build:ext": "pnpm -C apps/vscode-extension build",
-    "dev:ext": "pnpm -C apps/vscode-extension dev",
+    "build:ext": "pnpm -C apps/codernic-ext build",
+    "dev:ext": "pnpm -C apps/codernic-ext dev",
     "install:all": "pnpm install && cargo fetch",
     "check:all": "cargo check && pnpm run -r lint",
-    "test:all": "cargo test && pnpm run -r test"
+    "test:all": "cargo test && pnpm run -r test",
+    "dev:ui": "pnpm -C apps/codernic-ui dev",
+    "ext:pack": "bash scripts/package-extension.sh prod rocm",
+    "ext:pack-d": "bash scripts/package-extension.sh dev rocm",
+    "ext:build-binaries": "bash scripts/build-dev-binaries.sh rocm",
+    "ext:publish": "bash scripts/publish-to-public.sh",
+    "daemon:start": "cargo run --bin ai_agencee_daemon",
+    "daemon:stop": "pkill -f ai_agencee_daemon"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",

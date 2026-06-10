@@ -1,4 +1,4 @@
-import type { LlmModel, LlmProvider } from '../../../../../vscode-extension/src/features/codernic/model/llm.types';
+import type { LlmModel, LlmProvider } from '../../../../../codernic-ext/src/features/codernic/model/llm.types';
 import { Button, Select } from '../../../shared';
 
 interface ModelConfigFormProps {

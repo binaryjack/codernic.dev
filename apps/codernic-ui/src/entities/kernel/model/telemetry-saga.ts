@@ -1,7 +1,7 @@
 import type { EventChannel } from 'redux-saga';
 import { eventChannel, buffers } from 'redux-saga';
 import { all, call, fork, put, take } from 'redux-saga/effects';
-import { CONFIG } from '../../../../../vscode-extension/src/shared/config';
+import { CONFIG } from '../../../../../codernic-ext/src/shared/config';
 import type { AgentRunState } from './types';
 import { setAgentRun, setContextStats, setInfraStats } from './kernel-slice';
 

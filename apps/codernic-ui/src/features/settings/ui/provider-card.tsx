@@ -1,10 +1,9 @@
-import type { LlmProvider } from '../../../../../vscode-extension/src/features/codernic/model/llm.types';
+import type { LlmProvider } from '../../../../../codernic-ext/src/features/codernic/model/llm.types';
 import { Button } from '../../../shared';
 
 interface ProviderCardProps {
   provider: LlmProvider;
   testStatus?: string;
-  onKillAll: () => void;
   onTest: () => void;
   onEdit: () => void;
   onDelete: () => void;
@@ -13,7 +12,6 @@ interface ProviderCardProps {
 export function ProviderCard({
   provider,
   testStatus,
-  onKillAll,
   onTest,
   onEdit,
   onDelete,
@@ -45,11 +43,6 @@ export function ProviderCard({
           <strong style={{ color: 'var(--text-h)', fontSize: '12px' }}>{provider.name}</strong>
         </div>
         <div style={{ display: 'flex', gap: '6px' }}>
-          {provider.type === 'local-managed-llama' && (
-            <Button onClick={onKillAll} variant="danger" size="xs">
-              Kill All
-            </Button>
-          )}
           <Button onClick={onTest} variant="accent" size="xs">
             {testStatus || 'Test'}
           </Button>

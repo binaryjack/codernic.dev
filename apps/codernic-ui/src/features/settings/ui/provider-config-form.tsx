@@ -1,4 +1,4 @@
-import type { LlmProvider, LlmProviderType } from '../../../../../vscode-extension/src/features/codernic/model/llm.types';
+import type { LlmProvider, LlmProviderType } from '../../../../../codernic-ext/src/features/codernic/model/llm.types';
 import { Button, Select } from '../../../shared';
 
 interface ProviderConfigFormProps {
@@ -7,7 +7,6 @@ interface ProviderConfigFormProps {
   onUpdate: (updates: Partial<LlmProvider>) => void;
   onSave: () => void;
   onCancel: () => void;
-  onBrowse: (key: string, title: string) => void;
 }
 
 export function ProviderConfigForm({
@@ -16,7 +15,6 @@ export function ProviderConfigForm({
   onUpdate,
   onSave,
   onCancel,
-  onBrowse,
 }: ProviderConfigFormProps) {
   const inputStyle: React.CSSProperties = {
     background: 'var(--vscode-input-background, #1e1e1e)',
@@ -104,38 +102,9 @@ export function ProviderConfigForm({
             }}
           >
             <div style={groupStyle}>
-              <label style={labelStyle} htmlFor="llama-path">
-                Llama.cpp Server Path
-              </label>
-              <div style={{ display: 'flex', gap: '4px' }}>
-                <input
-                  id="llama-path"
-                  style={inputStyle}
-                  value={newProvider.llamaCppPath || ''}
-                  onChange={(e) => onUpdate({ llamaCppPath: e.target.value })}
-                  placeholder="/path/to/llama-server"
-                />
-                <Button
-                  onClick={() => onBrowse('llamaCppPath', 'Select llama-server binary')}
-                  variant="secondary"
-                  size="sm"
-                  style={{ padding: '0 8px', borderRadius: '4px' }}
-                >
-                  ...
-                </Button>
-              </div>
-            </div>
-            <div style={groupStyle}>
-              <label style={labelStyle} htmlFor="llama-host">
-                Host
-              </label>
-              <input
-                id="llama-host"
-                style={inputStyle}
-                value={newProvider.host}
-                onChange={(e) => onUpdate({ host: e.target.value })}
-                placeholder="e.g. 127.0.0.1"
-              />
+              <p style={{ fontSize: '11px', color: '#a1a1aa', margin: 0, fontStyle: 'italic' }}>
+                Ce mode utilise le moteur d'inférence natif Rust. Aucun binaire de serveur externe n'est requis. Ajoutez et configurez directement vos fichiers GGUF dans la section modèles ci-dessous.
+              </p>
             </div>
           </div>
         ) : (
