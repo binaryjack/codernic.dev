@@ -1,0 +1,39 @@
+#erathos-canvas-container,
+.erathos-canvas,
+[id^="erathos-canvas"] {
+  /* Layout & Backgrounds */
+  --vbs-bg-canvas: var(--bg-base, #07090c);
+  --vbs-bg-panel: var(--bg-panel, #0d1117);
+  --vbs-bg-input: var(--bg-input, rgba(255, 255, 255, 0.04));
+  --vbs-border: var(--border, rgba(255, 255, 255, 0.07));
+
+  /* Accents */
+  --vbs-primary: var(--amber-500, #f59e0b);
+  --vbs-primary-hover: var(--amber-400, #fbbf24);
+  --vbs-text-primary: var(--text-primary, #e4e4e7);
+  --vbs-text-secondary: var(--text-muted, #52525b);
+
+  /* Grid (Matches Codernic's dark aesthetics) */
+  --vbs-grid-primary-color: rgba(255, 255, 255, 0.05);
+  --vbs-grid-secondary-color: rgba(255, 255, 255, 0.02);
+
+  /* Entity / Nodes */
+  --vbs-entity-name-color: var(--text-heading, #fafafa);
+  --vbs-entity-props-font-family: var(--sans, 'Inter', system-ui, sans-serif);
+  --vbs-radius: var(--radius-sm, 6px);
+
+  /* Edges */
+  --atp-edge-stroke: var(--text-muted, #52525b);
+  --atp-edge-stroke-selected: var(--amber-500, #f59e0b);
+  --atp-edge-stroke-hover: var(--amber-400, #fbbf24);
+}
+
+/* Animations for buttons */
+[id^="erathos-canvas"] button {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[id^="erathos-canvas"] button:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.1);
+}

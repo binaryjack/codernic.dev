@@ -1,0 +1,1 @@
+# Badge\n\nThe `Badge` component displays small semantic indicators.\n\n## Usage\n\n```tsx\nimport { Badge } from "@ai-agencee/ui"\n\n<Badge variant="success">Completed</Badge>\n<Badge variant="warning">Pending</Badge>\n```

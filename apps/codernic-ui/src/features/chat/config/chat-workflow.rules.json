@@ -1,0 +1,85 @@
+{
+  "$schema": "../../../../../../base_configurations/system/schemas/chat-workflow.schema.json",
+  "modes": {
+    "brainstorm": {
+      "elements": {
+        "implement-now-button": { "visible": false }
+      },
+      "commands": {
+        "/plan": { "invokable": true },
+        "/freeze": { "invokable": false, "onBlocked": { "message": "Plan mode is not active. Switch to plan mode first using /plan.", "vector": ["toast"] } },
+        "/cf": { "invokable": false, "onBlocked": { "message": "Plan is not active, no frozen plan to cancel.", "vector": ["toast"] } },
+        "/dag": { "invokable": false, "onBlocked": { "message": "You must create and freeze a plan first using /plan and /freeze.", "vector": ["toast"] } },
+        "/impl": { "invokable": false, "onBlocked": { "message": "You must create and freeze a plan first using /plan and /freeze.", "vector": ["toast"] } },
+        "/implementnow": { "invokable": false, "onBlocked": { "message": "You must create and freeze a plan first using /plan and /freeze.", "vector": ["toast"] } }
+      }
+    },
+    "plan": {
+      "refinement": {
+        "elements": {
+          "implement-now-button": { "visible": false }
+        },
+        "commands": {
+          "/plan": { "invokable": true },
+          "/freeze": { "invokable": true },
+          "/cf": { "invokable": false, "onBlocked": { "message": "Plan is not frozen yet. Use /freeze to seal it.", "vector": ["toast"] } },
+          "/dag": { "invokable": false, "onBlocked": { "message": "You must freeze the plan using /freeze before you can start implementing.", "vector": ["toast", "chat-feed"] } },
+          "/impl": { "invokable": false, "onBlocked": { "message": "You must freeze the plan using /freeze before you can start implementing.", "vector": ["toast", "chat-feed"] } },
+          "/implementnow": { "invokable": false, "onBlocked": { "message": "You must freeze the plan using /freeze before you can start implementing.", "vector": ["toast", "chat-feed"] } }
+        }
+      },
+      "frozen": {
+        "elements": {
+          "implement-now-button": { "visible": true }
+        },
+        "commands": {
+          "/plan": { "invokable": true },
+          "/freeze": { "invokable": false, "onBlocked": { "message": "Plan is already frozen. Use /cf to cancel freeze.", "vector": ["toast"] } },
+          "/cf": { "invokable": true },
+          "/dag": { "invokable": true },
+          "/impl": { "invokable": true },
+          "/implementnow": { "invokable": true }
+        }
+      }
+    },
+    "builder": {
+      "elements": {
+        "implement-now-button": { "visible": false }
+      },
+      "commands": {
+        "/plan": { "invokable": true },
+        "/freeze": { "invokable": false, "onBlocked": { "message": "Switch to Plan mode first using /plan.", "vector": ["toast"] } },
+        "/cf": { "invokable": false, "onBlocked": { "message": "Builder mode is active. Plan cannot be unfrozen.", "vector": ["toast"] } },
+        "/dag": { "invokable": false, "onBlocked": { "message": "Builder mode is already active.", "vector": ["toast"] } },
+        "/impl": { "invokable": false, "onBlocked": { "message": "Builder mode is already active.", "vector": ["toast"] } },
+        "/implementnow": { "invokable": false, "onBlocked": { "message": "Builder mode is already active.", "vector": ["toast"] } }
+      }
+    },
+    "journey": {
+      "elements": {
+        "implement-now-button": { "visible": false }
+      },
+      "commands": {
+        "/plan": { "invokable": true },
+        "/freeze": { "invokable": false, "onBlocked": { "message": "Switch to Plan mode first using /plan.", "vector": ["toast"] } },
+        "/cf": { "invokable": false, "onBlocked": { "message": "Plan is not active.", "vector": ["toast"] } },
+        "/dag": { "invokable": false, "onBlocked": { "message": "You must create and freeze a plan first using /plan.", "vector": ["toast"] } },
+        "/impl": { "invokable": false, "onBlocked": { "message": "You must create and freeze a plan first using /plan.", "vector": ["toast"] } },
+        "/implementnow": { "invokable": false, "onBlocked": { "message": "You must create and freeze a plan first using /plan.", "vector": ["toast"] } }
+      }
+    },
+    "analyse": {
+      "elements": {
+        "implement-now-button": { "visible": false }
+      },
+      "commands": {
+        "/plan": { "invokable": true },
+        "/freeze": { "invokable": false, "onBlocked": { "message": "Switch to Plan mode first using /plan.", "vector": ["toast"] } },
+        "/cf": { "invokable": false, "onBlocked": { "message": "Plan is not active.", "vector": ["toast"] } },
+        "/dag": { "invokable": false, "onBlocked": { "message": "You must create and freeze a plan first using /plan.", "vector": ["toast"] } },
+        "/impl": { "invokable": false, "onBlocked": { "message": "You must create and freeze a plan first using /plan.", "vector": ["toast"] } },
+        "/implementnow": { "invokable": false, "onBlocked": { "message": "You must create and freeze a plan first using /plan.", "vector": ["toast"] } }
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react-jsx",
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "ajv": ["node_modules/ajv/dist/ajv.d.ts"],
+      "mermaid": ["node_modules/mermaid/dist/mermaid.d.ts"],
+      "@modelcontextprotocol/sdk/*": ["node_modules/@modelcontextprotocol/sdk/dist/esm/*"]
+    },
+    "types": ["node", "jest", "vscode"]
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "name": "@ai-agencee/ui",
+  "version": "0.1.0",
+  "description": "Shared React UI component library — formular.dev bridge, atoms, molecules, DAG canvas",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./formular-bridge": "./src/formular-bridge/index.ts",
+    "./form": "./src/form/index.ts",
+    "./atoms": "./src/atoms/index.ts",
+    "./molecules": "./src/molecules/index.ts",
+    "./dag": "./src/dag/index.ts",
+    "./tokens": "./src/tokens/index.ts",
+    "./icons": "./src/icons/index.tsx",
+    "./tailwind.preset": "./tailwind.preset.cjs",
+    "./fast-table": "./src/fast-table/index.ts",
+    "./layout-engine": "./src/layout-engine/index.ts"
+  },
+  "scripts": {
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "lint": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "@pulsar-framework/formular.dev": ">=1",
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "peerDependenciesMeta": {
+    "@xyflow/react": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@pulsar-framework/formular.dev": "^1.0.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/dagre": "^0.7.52",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@xyflow/react": "^12.7.0",
+    "dagre": "^0.8.5",
+    "jsdom": "^29.0.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "typescript": "^5.4.5",
+    "vitepress": "^1.6.4",
+    "vitest": "^4.0.18"
+  },
+  "dependencies": {
+    "@xterm/addon-fit": "^0.11.0",
+    "@xterm/xterm": "^6.0.0",
+    "@binaryjack/state-factories": "workspace:*"
+  }
+}

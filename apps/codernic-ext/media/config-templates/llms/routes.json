@@ -1,0 +1,21 @@
+{
+  "coding": {
+    "provider": "gguf-local",
+    "model": "unknown",
+    "temperature": 0.2
+  },
+  "planning": {
+    "provider": "gguf-local",
+    "model": "unknown",
+    "temperature": 0.4
+  },
+  "reviewing": {
+    "provider": "gguf-local",
+    "model": "unknown",
+    "temperature": 0.1
+  },
+    "provider": "gguf-local",
+    "model": "unknown",
+    "temperature": 0.7
+  }
+}

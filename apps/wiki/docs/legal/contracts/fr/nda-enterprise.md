@@ -1,0 +1,2 @@
+# Accord de Non-Divulgation Mutuel (Entreprise)
+Cet accord est établi pour protéger les secrets d'affaires selon l'**Art. 19 CO** et l'**Art. 162 du Code pénal suisse** (Violation du secret de fabrication ou commercial). Les obligations survivent 5 ans post-négociation.

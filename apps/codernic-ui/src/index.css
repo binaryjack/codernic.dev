@@ -1,0 +1,332 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   CODERNIC UI — Design Token System (amber-first dark theme)
+   All components MUST reference these tokens only.
+   Never use raw hex values in component files.
+   ============================================================ */
+
+:root {
+  color-scheme: dark;
+  /* ── Background layers ── */
+  --bg-base:        #07090c;   /* Root canvas */
+  --bg-panel:       #0d1117;   /* Sidebar / panel chrome */
+  --bg-card:        rgba(255, 255, 255, 0.025);  /* Cards, accordions */
+  --bg-card-hover:  rgba(255, 255, 255, 0.05);   /* Card hover */
+  --bg-overlay:     rgba(7, 9, 12, 0.88);         /* Modals, drawers */
+  --bg-surface:     #111620;   /* Slightly elevated surfaces */
+  --bg-input:       rgba(255, 255, 255, 0.04);    /* Input fields */
+
+  /* ── Borders ── */
+  --border:         rgba(255, 255, 255, 0.07);   /* Default separator */
+  --border-subtle:  rgba(255, 255, 255, 0.04);   /* Very faint rule */
+  --border-active:  rgba(245, 158, 11, 0.40);    /* Focused / active */
+  --border-danger:  rgba(248, 113, 113, 0.50);   /* Error state */
+  --border-muted:   rgba(255, 255, 255, 0.05);   /* Muted, secondary */
+
+  /* ── Amber brand palette ── */
+  --amber-950:  #1a0f00;
+  --amber-900:  #451a03;
+  --amber-800:  #78350f;
+  --amber-700:  #92400e;
+  --amber-600:  #b45309;
+  --amber-500:  #f59e0b;   /* Primary brand */
+  --amber-400:  #fbbf24;   /* Bright accent */
+  --amber-300:  #fcd34d;
+  --amber-200:  #fde68a;
+  --amber-100:  #fef3c7;
+  --amber-glow: rgba(245, 158, 11, 0.15);  /* Glow shadow tint */
+  --amber-glow-md: rgba(245, 158, 11, 0.25);
+
+  /* ── Text ── */
+  --text-heading: #fafafa;     /* H1–H3 */
+  --text-primary: #e4e4e7;     /* Body, labels */
+  --text-body:    #a1a1aa;     /* Secondary body */
+  --text-muted:   #52525b;     /* Captions, placeholders */
+  --text-amber:   #fbbf24;     /* Amber-tinted highlights */
+  --text-danger:  #f87171;     /* Error text */
+  --text-success: #4ade80;     /* Success text */
+  --text-code:    #fb7185;     /* Inline code */
+
+  /* ── Status / semantic ── */
+  --status-ok:       #4ade80;
+  --status-warning:  #fbbf24;
+  --status-error:    #f87171;
+  --status-running:  #f59e0b;
+  --status-idle:     #52525b;
+  --status-info:     #60a5fa;
+
+  /* ── Mode accent palette (keep for mode chips only) ── */
+  --accent-ask:      #3b82f6;
+  --accent-plan:     #f59e0b;
+  --accent-agent:    #ef4444;
+  --accent-journey:  #818cf8;
+  --accent-analyse:  #06b6d4;
+
+  /* ── Shadows ── */
+  --shadow-sm:    0 1px 4px rgba(0, 0, 0, 0.5);
+  --shadow-md:    0 4px 16px rgba(0, 0, 0, 0.6);
+  --shadow-lg:    0 8px 32px rgba(0, 0, 0, 0.7);
+  --shadow-amber: 0 0 24px rgba(245, 158, 11, 0.18);
+  --shadow-panel: -2px 0 20px rgba(0, 0, 0, 0.4);
+
+  /* ── Radius ── */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+
+  /* ── Typography ── */
+  --sans:    'Inter', system-ui, -apple-system, sans-serif;
+  --heading: 'Outfit', system-ui, -apple-system, sans-serif;
+  --mono:    'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* ── Legacy VS Code compat aliases (DO NOT ADD NEW ONES) ── */
+  /* These map to our tokens so components can be migrated incrementally */
+  --vscode-editor-background:       var(--bg-base);
+  --vscode-editor-foreground:       var(--text-primary);
+  --vscode-sideBar-background:      var(--bg-panel);
+  --vscode-focusBorder:             var(--amber-500);
+  --vscode-button-background:       var(--amber-500);
+  --vscode-button-foreground:       #000000;
+  --vscode-button-hoverBackground:  var(--amber-400);
+  --vscode-terminal-ansiGreen:      var(--status-ok);
+  --vscode-terminal-ansiRed:        var(--status-error);
+  --vscode-terminal-ansiBlue:       var(--accent-ask);
+  --vscode-foreground:              var(--text-primary);
+  --vscode-descriptionForeground:   var(--text-muted);
+  --vscode-sideBarTitle-foreground: var(--text-amber);
+  --vscode-sideBarSectionHeader-foreground: var(--text-muted);
+  --vscode-list-activeSelectionBackground: rgba(245, 158, 11, 0.15);
+  --vscode-list-activeSelectionForeground: var(--amber-400);
+  --vscode-list-hoverBackground:    var(--bg-card-hover);
+  --vscode-list-hoverForeground:    var(--text-primary);
+  --vscode-input-background:        var(--bg-input);
+  --vscode-input-foreground:        var(--text-primary);
+  --vscode-textLink-foreground:     var(--amber-400);
+
+  /* Legacy shim — keep card-bg so anything using it still works */
+  --bg:      var(--bg-base);
+  --card-bg: var(--bg-surface);
+  --border-legacy: var(--border);
+  --code-bg: var(--bg-panel);
+  --text:    var(--text-body);
+  --text-h:  var(--text-heading);
+  --social-bg: rgba(17, 22, 32, 0.5);
+  --shadow:    var(--shadow-md);
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+
+html,
+body,
+#root {
+  margin: 0 !important;
+  padding: 0 !important;
+  height: 100vh !important;
+  width: 100vw !important;
+  max-height: 100vh !important;
+  max-width: 100vw !important;
+  overflow: hidden !important;
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 1.5;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--heading);
+  font-weight: 600;
+  color: var(--text-heading);
+  margin: 0;
+  line-height: 1.2;
+}
+
+p {
+  margin: 0;
+}
+
+code, kbd, pre {
+  font-family: var(--mono);
+  font-size: 12px;
+  background: var(--bg-panel);
+  padding: 2px 5px;
+  border-radius: var(--radius-xs);
+  color: var(--text-code);
+  border: 1px solid var(--border-subtle);
+}
+
+a {
+  color: var(--text-amber);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+option {
+  background-color: var(--bg-panel);
+  color: var(--text-primary);
+}
+
+/* ============================================================
+   SCROLLBARS — thin, invisible until hover
+   ============================================================ */
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(245, 158, 11, 0.3);
+}
+
+/* ============================================================
+   UTILITY CLASSES (brand-specific only, not Tailwind overrides)
+   ============================================================ */
+
+.cursor-pointer  { cursor: pointer; }
+.select-none     { user-select: none; }
+.truncate        { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Amber gradient text — for headings */
+.text-amber-gradient {
+  background: linear-gradient(135deg, var(--amber-400) 0%, var(--amber-600) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Section label — small all-caps muted label above a title */
+.section-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-amber);
+}
+
+/* Gradient fade separator — replaces plain <hr> */
+.divider-gradient {
+  height: 1px;
+  background: linear-gradient(90deg, var(--amber-glow) 0%, var(--border) 40%, transparent 100%);
+  border: none;
+  margin: 0;
+}
+
+/* Status dot */
+.status-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.status-dot.ok      { background: var(--status-ok); box-shadow: 0 0 6px rgba(74, 222, 128, 0.6); }
+.status-dot.running { background: var(--status-running); box-shadow: 0 0 6px rgba(245, 158, 11, 0.6); }
+.status-dot.error   { background: var(--status-error); box-shadow: 0 0 6px rgba(248, 113, 113, 0.5); }
+.status-dot.idle    { background: var(--status-idle); }
+
+/* Badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 2px 8px;
+  border-radius: var(--radius-xl);
+  border: 1px solid transparent;
+}
+
+.badge-amber {
+  background: rgba(245, 158, 11, 0.1);
+  border-color: rgba(245, 158, 11, 0.3);
+  color: var(--amber-400);
+}
+
+.badge-green {
+  background: rgba(74, 222, 128, 0.08);
+  border-color: rgba(74, 222, 128, 0.25);
+  color: var(--status-ok);
+}
+
+.badge-red {
+  background: rgba(248, 113, 113, 0.08);
+  border-color: rgba(248, 113, 113, 0.25);
+  color: var(--status-error);
+}
+
+.badge-muted {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: var(--border);
+  color: var(--text-muted);
+}
+
+/* Amber glow ring — for focused inputs / active items */
+.glow-amber {
+  box-shadow: 0 0 0 1px var(--amber-500), var(--shadow-amber);
+}
+
+/* Glass panel — for sidebars, panels */
+.glass-panel {
+  background: rgba(13, 17, 23, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+}
+
+/* Pulse animation for status indicators */
+@keyframes pulse-amber {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+.animate-pulse-amber {
+  animation: pulse-amber 1.8s ease-in-out infinite;
+}
+
+/* Smooth expand for accordions */
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-down {
+  animation: slide-down 0.18s ease-out forwards;
+}

@@ -1,0 +1,9 @@
+{
+  "type": "cloud-openai",
+  "apiKey": "",
+  "baseUrl": "https://api.x.ai/v1",
+  "models": [
+    { "id": "grok-beta", "name": "Grok Beta", "contextWindow": 128000 },
+    { "id": "grok-vision-beta", "name": "Grok Vision Beta", "contextWindow": 8192 }
+  ]
+}

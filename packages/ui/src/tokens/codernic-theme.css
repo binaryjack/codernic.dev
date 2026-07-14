@@ -1,0 +1,105 @@
+/* ============================================================
+   CODERNIC UI — Design Token System
+   Extracted from codernic-ui to be used in packages/ui
+   ============================================================ */
+
+:root {
+  color-scheme: dark;
+  /* ── Background layers ── */
+  --bg-base:        #07090c;   /* Root canvas */
+  --bg-panel:       #0d1117;   /* Sidebar / panel chrome */
+  --bg-card:        rgba(255, 255, 255, 0.025);  /* Cards, accordions */
+  --bg-card-hover:  rgba(255, 255, 255, 0.05);   /* Card hover */
+  --bg-overlay:     rgba(7, 9, 12, 0.88);         /* Modals, drawers */
+  --bg-surface:     #111620;   /* Slightly elevated surfaces */
+  --bg-input:       rgba(255, 255, 255, 0.04);    /* Input fields */
+
+  /* ── Borders ── */
+  --border:         rgba(255, 255, 255, 0.07);   /* Default separator */
+  --border-subtle:  rgba(255, 255, 255, 0.04);   /* Very faint rule */
+  --border-active:  rgba(245, 158, 11, 0.40);    /* Focused / active */
+  --border-danger:  rgba(248, 113, 113, 0.50);   /* Error state */
+  --border-muted:   rgba(255, 255, 255, 0.05);   /* Muted, secondary */
+
+  /* ── Amber brand palette ── */
+  --amber-950:  #1a0f00;
+  --amber-900:  #451a03;
+  --amber-800:  #78350f;
+  --amber-700:  #92400e;
+  --amber-600:  #b45309;
+  --amber-500:  #f59e0b;   /* Primary brand */
+  --amber-400:  #fbbf24;   /* Bright accent */
+  --amber-300:  #fcd34d;
+  --amber-200:  #fde68a;
+  --amber-100:  #fef3c7;
+  --amber-glow: rgba(245, 158, 11, 0.15);  /* Glow shadow tint */
+  --amber-glow-md: rgba(245, 158, 11, 0.25);
+
+  /* ── Brand Mapping (for Tailwind Preset) ── */
+  --brand-50:  #fffbeb;
+  --brand-100: var(--amber-100);
+  --brand-200: var(--amber-200);
+  --brand-300: var(--amber-300);
+  --brand-400: var(--amber-400);
+  --brand-500: var(--amber-500);
+  --brand-600: var(--amber-600);
+  --brand-700: var(--amber-700);
+  --brand-800: var(--amber-800);
+  --brand-900: var(--amber-900);
+
+  /* ── Neutral Mapping (for Tailwind Preset) ── */
+  --neutral-50:  #fafafa;
+  --neutral-100: #f4f4f5;
+  --neutral-200: #e4e4e7;
+  --neutral-300: #d4d4d8;
+  --neutral-400: #a1a1aa;
+  --neutral-500: #71717a;
+  --neutral-600: #52525b;
+  --neutral-700: #3f3f46;
+  --neutral-800: #27272a;
+  --neutral-900: #18181b;
+
+  /* ── Text ── */
+  --text-heading: #fafafa;     /* H1–H3 */
+  --text-primary: #e4e4e7;     /* Body, labels */
+  --text-body:    #a1a1aa;     /* Secondary body */
+  --text-muted:   #52525b;     /* Captions, placeholders */
+  --text-amber:   #fbbf24;     /* Amber-tinted highlights */
+  --text-danger:  #f87171;     /* Error text */
+  --text-success: #4ade80;     /* Success text */
+  --text-code:    #fb7185;     /* Inline code */
+
+  /* ── Status / semantic ── */
+  --status-ok:       #4ade80;
+  --status-warning:  #fbbf24;
+  --status-error:    #f87171;
+  --status-running:  #f59e0b;
+  --status-idle:     #52525b;
+  --status-info:     #60a5fa;
+
+  /* ── Mode accent palette ── */
+  --accent-ask:      #3b82f6;
+  --accent-plan:     #f59e0b;
+  --accent-agent:    #ef4444;
+  --accent-journey:  #818cf8;
+  --accent-analyse:  #06b6d4;
+
+  /* ── Shadows ── */
+  --shadow-sm:    0 1px 4px rgba(0, 0, 0, 0.5);
+  --shadow-md:    0 4px 16px rgba(0, 0, 0, 0.6);
+  --shadow-lg:    0 8px 32px rgba(0, 0, 0, 0.7);
+  --shadow-amber: 0 0 24px rgba(245, 158, 11, 0.18);
+  --shadow-panel: -2px 0 20px rgba(0, 0, 0, 0.4);
+
+  /* ── Radius ── */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+
+  /* ── Typography ── */
+  --sans:    'Inter', system-ui, -apple-system, sans-serif;
+  --heading: 'Outfit', system-ui, -apple-system, sans-serif;
+  --mono:    'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}

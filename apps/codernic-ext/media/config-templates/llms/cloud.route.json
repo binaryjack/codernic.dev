@@ -1,0 +1,9 @@
+{
+  "rules": [
+    {
+      "pattern": ".*",
+      "provider": "cloud-openai",
+      "model": "gpt-4o"
+    }
+  ]
+}

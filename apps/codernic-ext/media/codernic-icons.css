@@ -1,0 +1,19 @@
+@font-face {
+    font-family: "codernic-icons";
+    src: url("./codernic-icons.woff?147b4b48c186aed7288070942bb2c4c1") format("woff");
+}
+
+i[class^="icon-"]:before, i[class*=" icon-"]:before {
+    font-family: codernic-icons !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-codernic-logo:before {
+    content: "\f101";
+}

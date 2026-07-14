@@ -1,0 +1,43 @@
+{
+  "name": "ai-agencee-monorepo",
+  "private": true,
+  "description": "Enterprise AI Orchestration Platform (Rust Engine + VS Code Client)",
+  "scripts": {
+    "extract-test-ids": "node scripts/extract-test-ids.js",
+    "build:engine": "cargo build",
+    "build:ext": "pnpm -C apps/codernic-ext build",
+    "dev:ext": "pnpm -C apps/codernic-ext dev",
+    "install:all": "pnpm install && cargo fetch",
+    "check:all": "cargo check && pnpm run -r lint",
+    "test:all": "cargo test && pnpm run -r test",
+    "dev:ui": "pnpm -C apps/codernic-ui dev",
+    "ext:pack": "bash scripts/package-extension.sh prod rocm",
+    "ext:pack-d": "bash scripts/package-extension.sh dev rocm",
+    "ext:build-binaries": "bash scripts/build-dev-binaries.sh rocm",
+    "ext:publish": "bash scripts/publish-to-public.sh",
+    "daemon:start": "BYPASS_LICENSE=1 cargo run --bin ai_agencee_daemon",
+    "daemon:stop": "pkill -f \"[a]i_agencee_daemon\" || true",
+    "kill:all": "pkill -f \"[a]i_agencee_daemon\" || true; pkill -f \"[n]ode.*codernic\" || true; pkill -f \"[a]i_kit_mcp\" || true; pkill -f \"[v]ite\" || true; echo 'All processes killed'",
+    "ext:pack-only": "pnpm -C apps/codernic-ext build && pnpm -C apps/codernic-ext package",
+    "dev-f": "bash scripts/dev-f.sh",
+    "dev:web": "bash scripts/start-web.sh"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1",
+    "zod": "^4.4.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ],
+    "overrides": {
+      "@atomos-web/structura-core": "^2.3.2",
+      "@binaryjack/formular.dev": "^2.3.2"
+    }
+  }
+}

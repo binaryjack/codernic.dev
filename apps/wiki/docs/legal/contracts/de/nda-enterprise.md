@@ -1,0 +1,2 @@
+# Gegenseitige Geheimhaltungsvereinbarung (Unternehmen)
+Geschlossen gemäß **Art. 19 OR** und **Art. 162 des Schweizerischen Strafgesetzbuches** (Verletzung von Fabrikations- und Geschäftsgeheimnissen).

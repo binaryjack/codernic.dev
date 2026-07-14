@@ -1,0 +1,3 @@
+# Accord de Niveau de Service (SLA - Entreprise)
+Les services de support constituent un mandat (**Art. 394 CO** ([Art. 394](https://www.fedlex.admin.ch/eli/cc/27/317_321_377/fr#art_394))). 
+Conformément à l'**Art. 100 CO** ([Art. 100](https://www.fedlex.admin.ch/eli/cc/27/317_321_377/fr#art_100)), toute responsabilité pour **négligence légère** est expressément exclue. L'équipe Codernic ne répond que du dol et de la faute grave.

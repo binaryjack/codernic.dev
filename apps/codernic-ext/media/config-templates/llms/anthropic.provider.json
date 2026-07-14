@@ -1,0 +1,17 @@
+{
+  "type": "cloud-anthropic",
+  "apiKey": "",
+  "baseUrl": "https://api.anthropic.com/v1/messages",
+  "streamMapping": {
+    "deltaPointer": "/delta/text"
+  },
+  "models": [
+    { "id": "claude-5-fable-20260609", "name": "Claude 5 Fable", "contextWindow": 1000000 },
+    { "id": "claude-5-mythos-20260609", "name": "Claude 5 Mythos", "contextWindow": 1000000 },
+    { "id": "claude-4-8-opus-20260528", "name": "Claude 4.8 Opus", "contextWindow": 1000000 },
+    { "id": "claude-4-6-sonnet-202602", "name": "Claude 4.6 Sonnet", "contextWindow": 1000000 },
+    { "id": "claude-3-7-sonnet-20250219", "name": "Claude 3.7 Sonnet", "contextWindow": 200000 },
+    { "id": "claude-3-5-sonnet-20241022", "name": "Claude 3.5 Sonnet", "contextWindow": 200000 },
+    { "id": "claude-3-5-haiku-20241022", "name": "Claude 3.5 Haiku", "contextWindow": 200000 }
+  ]
+}

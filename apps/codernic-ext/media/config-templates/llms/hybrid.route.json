@@ -1,0 +1,14 @@
+{
+  "rules": [
+    {
+      "pattern": ".*ask.*|.*plan.*",
+      "provider": "cloud-openai",
+      "model": "gpt-4o"
+    },
+    {
+      "pattern": ".*",
+      "provider": "local-managed-llama",
+      "model": "qwen2.5-coder:7b"
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+# Dependencies and Build Outputs
+node_modules/
+**/dist/
+target/
+coverage/
+*.tsbuildinfo
+test-results/
+playwright-report/
+blob-report/
+_dev-server.log
+
+# Large binary / build artifacts
+**/*.vsix
+**/*.tar.gz
+**/*.tar.bz2
+**/*.tar.xz
+**/*.zip
+**/*.msi
+**/*.exe
+**/*.AppImage
+
+# Compiled native addons / shared libraries
+**/*.node
+**/*.so
+**/*.dylib
+**/*.dll
+
+# ML model weights (never commit these)
+**/*.gguf
+**/*.onnx
+**/*.safetensors
+**/*.bin
+**/*.pt
+**/*.pth
+
+# Local runtime, logs, & workspace-private files
+_private/
+.continue/
+.config/
+models/
+.agencee_state.db
+*.txn
+.DS_Store
+Thumbs.db
+
+# Codernic Configuration Architecture
+# On versionne tout par défaut, SAUF les données locales/privées :
+.codernic/sessions/
+.codernic/artifacts/
+.codernic/analysis_sandbox/
+.codernic/ragtime.db*
+.codernic/daemon.pid
+.codernic/profile_preference
+.codernic/config/llms/keys/
+
+# Exclude any local state databases
+.codernic_state.db
+.agencee_state.db
+
+# Environment Variables
+.env
+.env.*
+!.env.example
+
+# Playwright Demo Videos
+private_docs/videos/

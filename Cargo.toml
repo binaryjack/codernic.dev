@@ -1,0 +1,8 @@
+[workspace]
+members = [
+    "crates/protocol",
+    "crates/b2b/pirsig-protocol",
+    "crates/b2b/galileus-protocol",
+    "crates/b2b/ragtime-protocol"
+]
+resolver = "2"

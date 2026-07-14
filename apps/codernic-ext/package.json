@@ -1,0 +1,501 @@
+{
+  "name": "codernic-ext",
+  "displayName": "Codernic",
+  "description": "Codernic — author agents, DAGs, rules and run workflows directly from VS Code",
+  "version": "0.6.479",
+  "publisher": "binaryjack",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/binaryjack/codernic.dev.git"
+  },
+  "homepage": "https://codernic.dev",
+  "private": true,
+  "engines": {
+    "vscode": "^1.118.0"
+  },
+  "categories": [
+    "AI",
+    "Other"
+  ],
+  "icon": "media/icon.png",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "icons": {
+      "codernic-logo": {
+        "description": "Codernic Logo",
+        "default": {
+          "fontPath": "media/codernic-icons.woff",
+          "fontCharacter": "\\f101"
+        }
+      }
+    },
+    "viewsContainers": {
+      "secondarySidebar": [
+        {
+          "id": "ai-agencee-codernic",
+          "title": "Codernic Mission Control",
+          "icon": "media/activitybar-icon.svg"
+        },
+        {
+          "id": "ai-agencee-schemas",
+          "title": "Erathos",
+          "icon": "media/activitybar-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "ai-agencee-codernic": [
+        {
+          "type": "webview",
+          "id": "ac.codernic",
+          "name": "Codernic",
+          "icon": "media/icon.svg"
+        }
+      ],
+      "ai-agencee-schemas": [
+        {
+          "type": "webview",
+          "id": "ai-agencee.schemas",
+          "name": "Erathos"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "ai-agencee.openTui",
+        "title": "Codernic: Open Terminal Buddy",
+        "icon": "$(terminal)"
+      },
+      {
+        "command": "ai-agencee.openCodernic",
+        "title": "Codernic: Open Codernic Mission Control",
+        "icon": "$(code)"
+      },
+      {
+        "command": "ai-agencee.showLogs",
+        "title": "Codernic: Show Logs",
+        "icon": "$(output)"
+      },
+      {
+        "command": "ai-agencee.restartMcp",
+        "title": "Codernic: Restart MCP Server",
+        "icon": "$(debug-restart)"
+      },
+      {
+        "command": "ai-agencee.buildEngine",
+        "title": "Codernic: Build Ragtime Engine",
+        "icon": "$(tools)"
+      },
+      {
+        "command": "ai-agencee.code.index",
+        "title": "Codernic: Index Codebase",
+        "icon": "$(database)"
+      },
+      {
+        "command": "ai-agencee.code.watch",
+        "title": "Codernic: Watch for Changes",
+        "icon": "$(eye)"
+      },
+      {
+        "command": "ai-agencee.code.stats",
+        "title": "Codernic: Show Code Stats",
+        "icon": "$(graph)"
+      },
+      {
+        "command": "ai-agencee.validate-index",
+        "title": "Codernic: Validate Index",
+        "icon": "$(check)"
+      },
+      {
+        "command": "ai-agencee.index-health-report",
+        "title": "Codernic: Index Health Report",
+        "icon": "$(pulse)"
+      },
+      {
+        "command": "ai-agencee.runSystemHealthCheck",
+        "title": "Codernic: Run System Health Check",
+        "icon": "$(heart)"
+      },
+      {
+        "command": "ai-agencee.selectModel",
+        "title": "Codernic: Select Language Model",
+        "icon": "$(symbol-misc)"
+      },
+      {
+        "command": "ai-agencee.showWelcome",
+        "title": "Codernic: Show Welcome",
+        "icon": "$(heart)"
+      },
+      {
+        "command": "ai-agencee.showQualityGates",
+        "title": "Codernic: Show Quality Gates",
+        "icon": "$(checklist)"
+      },
+      {
+        "command": "ai-agencee.indexed-files.refresh",
+        "title": "Refresh Indexed Files",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "ai-agencee.symbol-explorer.refresh",
+        "title": "Refresh Symbol Explorer",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "ai-agencee.search-symbols",
+        "title": "Codernic: Search Symbols",
+        "icon": "$(search)"
+      },
+      {
+        "command": "ai-agencee.show-symbol-context",
+        "title": "Show Symbol Context",
+        "icon": "$(info)"
+      },
+      {
+        "command": "ai-agencee.show-call-graph",
+        "title": "Show Call Graph",
+        "icon": "$(graph-line)"
+      },
+      {
+        "command": "ai-agencee.show-dependency-graph",
+        "title": "Show Dependency Graph",
+        "icon": "$(type-hierarchy)"
+      },
+      {
+        "command": "ai-agencee.show-file-dependencies",
+        "title": "Show File Dependencies",
+        "icon": "$(references)"
+      },
+      {
+        "command": "ai-agencee.show-analytics-dashboard",
+        "title": "Show Analytics Dashboard",
+        "icon": "$(dashboard)"
+      },
+      {
+        "command": "ai-agencee.schemas.openCanvas",
+        "title": "Open Schema Canvas",
+        "category": "Codernic"
+      },
+      {
+        "command": "codernic.addFileToContext",
+        "title": "Add To Codernic Context",
+        "category": "Codernic"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "codernic.addFileToContext",
+          "group": "codernic@1",
+          "when": "resourceScheme == file"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "codernic.addFileToContext",
+          "group": "codernic@1",
+          "when": "resourceScheme == file"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Codernic",
+      "properties": {
+        "ai-agencee.mcpPath": {
+          "type": "string",
+          "default": "",
+          "description": "Path to ai-kit-mcp binary (leave empty to auto-detect from workspace)"
+        },
+        "ai-agencee.licenseKey": {
+          "type": "string",
+          "default": "",
+          "description": "Codernic Pro License Key (Ed25519 Signed JWT). Leave empty for Free Tier."
+        },
+        "ai-agencee.model": {
+          "type": "string",
+          "default": "copilot-gpt-4o",
+          "description": "VS Code language model to use for chat"
+        },
+        "aiAgencee.indexing.maxConcurrency": {
+          "type": "number",
+          "default": 2,
+          "description": "Maximum number of concurrent threads used for indexing files. Reduce this value if your system freezes."
+        },
+        "aiAgencee.indexing.languages": {
+          "type": "array",
+          "default": [
+            "typescript",
+            "javascript"
+          ],
+          "description": "Programming languages to include in code indexing",
+          "items": {
+            "type": "string"
+          }
+        },
+        "aiAgencee.indexing.excludePatterns": {
+          "type": "array",
+          "default": [
+            "node_modules",
+            "dist",
+            "build",
+            ".git",
+            "coverage",
+            "**/*.min.js"
+          ],
+          "description": "Glob patterns to exclude from indexing",
+          "items": {
+            "type": "string"
+          }
+        },
+        "aiAgencee.indexing.includePatterns": {
+          "type": "array",
+          "default": [],
+          "description": "Glob patterns to force include (overrides .gitignore)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "aiAgencee.indexing.respectGitignore": {
+          "type": "boolean",
+          "default": true,
+          "description": "Respect .gitignore files when discovering files to index"
+        },
+        "aiAgencee.indexing.forceIncludePatterns": {
+          "type": "array",
+          "default": [],
+          "description": "Force-include patterns that override .gitignore exclusions (e.g., [\"_private/**\"])",
+          "items": {
+            "type": "string"
+          }
+        },
+        "aiAgencee.indexing.autoIndexOnOpen": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically index workspace on open if index is missing or stale"
+        },
+        "ai-agencee.indexing.autoReindex.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable automatic re-indexing on workspace open"
+        },
+        "ai-agencee.indexing.autoReindex.stalenessThresholdHours": {
+          "type": "number",
+          "default": 24,
+          "description": "Re-index if index is older than this many hours",
+          "minimum": 1
+        },
+        "ai-agencee.indexing.autoReindex.promptBeforeIndexing": {
+          "type": "boolean",
+          "default": true,
+          "description": "Prompt user before automatically re-indexing"
+        },
+        "ai-agencee.indexing.fileWatcher.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable file watcher for automatic incremental re-indexing"
+        },
+        "ai-agencee.indexing.fileWatcher.debounceMs": {
+          "type": "number",
+          "default": 5000,
+          "description": "Debounce delay in milliseconds before triggering reindex",
+          "minimum": 1000
+        },
+        "ai-agencee.indexing.fileWatcher.batchSize": {
+          "type": "number",
+          "default": 50,
+          "description": "Number of changed files that triggers immediate reindex",
+          "minimum": 1
+        },
+        "aiAgencee.indexing.reindexOnFileChange": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically re-index when files change (with debouncing)"
+        },
+        "aiAgencee.indexing.statusBarShowSymbols": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show symbol count instead of file count in status bar"
+        },
+        "aiAgencee.indexing.statusBarUpdateInterval": {
+          "type": "number",
+          "default": 10000,
+          "description": "Status bar update interval in milliseconds (minimum 5000)",
+          "minimum": 5000
+        },
+        "aiAgencee.indexing.progressLocation": {
+          "type": "string",
+          "enum": [
+            "notification",
+            "statusbar",
+            "both"
+          ],
+          "default": "both",
+          "description": "Where to show indexing progress updates"
+        },
+        "ai-agencee.notifications": {
+          "type": "string",
+          "enum": [
+            "all",
+            "errors-only",
+            "silent"
+          ],
+          "enumDescriptions": [
+            "Show all toast notifications (default behaviour).",
+            "Show only error toasts; replace info/warning toasts with a brief status bar flash.",
+            "Suppress all toasts; errors flash in the status bar for 8 seconds."
+          ],
+          "default": "all",
+          "description": "Controls how Codernic surfaces notifications. Change to 'errors-only' or 'silent' to reduce interruptions."
+        },
+        "ai-agencee.preferLocalModels": {
+          "type": "boolean",
+          "default": false,
+          "description": "Only use VS Code built-in models (GitHub Copilot). No external API calls."
+        },
+        "ai-agencee.ollamaEndpoint": {
+          "type": "string",
+          "default": "",
+          "description": "Ollama endpoint for local embeddings (e.g. http://localhost:11434)"
+        },
+        "ai-agencee.toolApprovals": {
+          "type": "string",
+          "enum": [
+            "ask",
+            "always"
+          ],
+          "enumDescriptions": [
+            "Always ask for permission before executing tools that modify the workspace (write_file, run_terminal, etc).",
+            "Automatically approve all tool executions without prompting."
+          ],
+          "default": "ask",
+          "description": "Determines whether Codernic should prompt for user approval before running mutating workspace tools."
+        },
+        "ai-agencee.jsonEditor.schemas": {
+          "type": "object",
+          "default": {
+            "config/llms/routes": {
+              "provider": {
+                "type": "DropDown",
+                "sourceCollection": "providers",
+                "sourceFile": "providers.json",
+                "sourceAssetType": "config/llms",
+                "labelField": "name",
+                "valueField": "id"
+              },
+              "model": {
+                "type": "DropDown",
+                "behavior": "cascading",
+                "sourceCollection": "models",
+                "sourceFile": "providers.json",
+                "sourceAssetType": "config/llms",
+                "dependsOn": "provider",
+                "dependsOnType": "field",
+                "fromFile": "providers.json",
+                "fromField": "id",
+                "onField": "providerId"
+              }
+            },
+            "agent": {
+              "name": {
+                "type": "String"
+              },
+              "systemPrompt": {
+                "type": "String"
+              },
+              "icon": {
+                "type": "String"
+              },
+              "description": {
+                "type": "String"
+              }
+            },
+            "dag": {
+              "name": {
+                "type": "String"
+              },
+              "description": {
+                "type": "String"
+              },
+              "modelRouterFile": {
+                "type": "String"
+              }
+            },
+            "technology": {
+              "name": {
+                "type": "String"
+              },
+              "description": {
+                "type": "String"
+              }
+            }
+          },
+          "description": "Metadata schemas for the Codernic JSON Editor. Define types, dropdowns, and cascading behaviors."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "pnpm run build",
+    "build": "tsc -p tsconfig.build.json --noEmit && node esbuild.config.mjs && pnpm run copy:flows && pnpm run copy:structura",
+    "build:webview": "vite build --config vite.webview.config.ts",
+    "copy:flows": "node scripts/copy-flows.js",
+    "copy:structura": "node scripts/copy-structura.js",
+    "build:ext": "../../scripts/package-extension.sh prod cpu native",
+    "build:ext:linux": "../../scripts/package-extension.sh prod cpu linux-x64",
+    "build:ext:win": "../../scripts/package-extension.sh prod cpu win32-x64",
+    "build:ext:mac": "../../scripts/package-extension.sh prod cpu darwin-arm64",
+    "dev": "tsc -p tsconfig.build.json --watch",
+    "dev:webview": "vite --config vite.webview.config.ts",
+    "lint": "tsc -p tsconfig.build.json --noEmit && tsc -p tsconfig.webview.json --noEmit",
+    "package": "vsce package --no-dependencies",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "code:index": "agencee code:index --path .",
+    "code:watch": "echo 'code:watch not yet implemented in agencee CLI — use agencee code:index'",
+    "code:search": "echo 'code:search not yet implemented in agencee CLI — use the Codernic search panel'",
+    "code:stats": "echo 'code:stats not yet implemented in agencee CLI'"
+  },
+  "dependencies": {
+    "@atomos-web/prime": "^2.3.0",
+    "@atomos-web/prime-style": "^2.3.1",
+    "@atomos-web/structura": "^2.3.2",
+    "@atomos-web/structura-core": "^2.3.2",
+    "@atomos-web/structura-mcp": "^2.3.2",
+    "@binaryjack/formular.dev": "^1.0.58",
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "ajv": "^8.20.0",
+    "mermaid": "^11.14.0",
+    "react-markdown": "^10.1.0",
+    "rehype-highlight": "^7.0.2",
+    "remark-gfm": "^4.0.1"
+  },
+  "devDependencies": {
+    "@ai-agencee/ui": "workspace:*",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^25.6.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@types/vscode": "^1.118.0",
+    "@types/ws": "^8.18.1",
+    "@vitejs/plugin-react": "^4.7.0",
+    "@vscode/vsce": "^3.9.1",
+    "autoprefixer": "^10.4.0",
+    "esbuild": "^0.25.12",
+    "jest": "^30.3.0",
+    "jest-environment-jsdom": "^30.3.0",
+    "postcss": "^8.4.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "tailwindcss": "^3.4.0",
+    "ts-jest": "^29.4.9",
+    "typescript": "^5.9.3",
+    "vite": "^6.4.2",
+    "ws": "^8.21.0"
+  }
+}

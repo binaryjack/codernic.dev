@@ -1,0 +1,35 @@
+{
+  "type": "cloud-openai",
+  "apiKey": "",
+  "baseUrl": "https://api.openai.com/v1/chat/completions",
+  "streamMapping": {
+    "deltaPointer": "/choices/0/delta/content"
+  },
+  "models": [
+    {
+      "id": "gpt-4o",
+      "name": "GPT-4o",
+      "contextWindow": 128000
+    },
+    {
+      "id": "gpt-4o-mini",
+      "name": "GPT-4o Mini",
+      "contextWindow": 128000
+    },
+    {
+      "id": "o1",
+      "name": "o1",
+      "contextWindow": 200000
+    },
+    {
+      "id": "o1-mini",
+      "name": "o1 Mini",
+      "contextWindow": 128000
+    },
+    {
+      "id": "o3-mini",
+      "name": "o3 Mini",
+      "contextWindow": 200000
+    }
+  ]
+}

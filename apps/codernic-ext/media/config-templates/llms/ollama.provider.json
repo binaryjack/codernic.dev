@@ -1,0 +1,9 @@
+{
+  "type": "openai",
+  "apiKey": "ollama",
+  "baseUrl": "http://127.0.0.1:11434/v1",
+  "models": [
+    { "id": "llama3.1", "name": "Llama 3.1 (Local)", "contextWindow": 8192 },
+    { "id": "qwen2.5-coder", "name": "Qwen 2.5 Coder (Local)", "contextWindow": 8192 }
+  ]
+}
