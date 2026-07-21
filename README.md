@@ -1,7 +1,7 @@
-# Codernic - The World's First SASEI
+# Codernic - Air-Gapped Sovereign AI Infrastructure
 
 > [!IMPORTANT]
-> **[ ARCHITECTURE NOTICE ]**
+> **[ ARCHITECTURE & OPEN-SOURCE NOTICE ]**
 > 
 > This repository contains the open-source client layer of the Codernic platform:
 > 
@@ -9,140 +9,109 @@
 > - **[OPEN-SOURCE] VS Code Extension**: Full IDE integration layer  
 > - **[OPEN-SOURCE] Protocol Crates**: Public API contracts and MCP bridges  
 > 
-> The following components are proprietary and closed-source for IP and commercial licensing reasons:
+> The proprietary core infrastructure is closed-source for IP, security, and commercial licensing reasons, delivering the 5 core pillars of enterprise governance (EMGOS):
 > 
-> - **[COMMERCIAL] Deming Engine**: Custom LLM inference runtime (Rust/Vulkan) with Paged Attention, Medusa Speculative Decoding, DoRA on-device training, and 39 hand-written GLSL compute shaders  
-> - **[COMMERCIAL] Pirsig Engine**: Real-time AST Firewall and quality gate enforcement  
-> - **[COMMERCIAL] Ragtime Engine**: Semantic context retrieval and deduplication  
-> - **[COMMERCIAL] Galileus DAW**: Multi-agent orchestration runtime  
+> - **[COMMERCIAL] Execution**: Native SLM inference runtime (Rust/Vulkan) with continuous batching  
+> - **[COMMERCIAL] Memory**: Semantic context retrieval, PDF/Notion/Confluence ingestion & deduplication  
+> - **[COMMERCIAL] Governance**: Automated SAST AST Pull Request review engine & Ed25519 WORM audit logging  
+> - **[COMMERCIAL] Optimization**: Token economy, INT8 KV Cache & low-latency execution  
+> - **[COMMERCIAL] Security**: Real-time AST Firewall, ONNX PII detection, and quality gate enforcement  
 > 
-> For enterprise licensing, partnership, or co-founder inquiries: [Contact us](https://codernic.dev/contact) | [LinkedIn](https://www.linkedin.com/company/codernic-dev/)
-
-> **Secure Autonomous Software Engineering Infrastructure.** We don't just generate code. We enforce deterministic architecture, block vulnerabilities via AST Firewalls, and guarantee absolute data sovereignty on bare-metal. The era of Copilots is over.
+> For enterprise licensing, Air-Gapped Pilot Program (Proof of Value), or partnership inquiries: [Contact us](https://codernic.dev/contact) | [LinkedIn](https://www.linkedin.com/company/codernic-dev/)
 
 ```mermaid
 graph TD
-    subgraph "Standard AI Copilot"
-        A[User Prompt] --> B[LLM Generates Code]
+    subgraph "Standard Cloud AI Copilot (High Risk)"
+        A[User Code / Prompt] --> B[Cloud API Egress]
         B --> C{Hits Disk Directly}
-        C -- Includes: console.log(user_email) --> D["[CRITICAL] GDPR Violation Leaked"]
+        C -- Includes: console.log(user_email) --> D["[CRITICAL] GDPR & IP Leakage"]
         style D fill:#fee2e2,stroke:#ef4444,color:#991b1b
     end
 
-    subgraph "Codernic (SASEI)"
-        E[User Prompt] --> F[LLM Generates Code]
-        F --> G{Pirsig AST Firewall}
-        G -- AST Analysis: PII detected --> H["[BLOCKED] Execution Blocked"]
+    subgraph "Codernic Sovereign Infrastructure (Air-Gapped)"
+        E[User Code / Prompt] --> F[Local SLM / Private K8s]
+        F --> G{AST & DLP Security Firewall}
+        G -- AST Analysis: PII / Secret detected --> H["[BLOCKED] Intercepted Real-Time"]
         H --> I[Agent Autonomous Self-Correction]
-        I --> J["[SECURE] Safe Code Written to Disk"]
+        I --> J["[SECURE] Verified Code Committed"]
         style H fill:#fef08a,stroke:#eab308,color:#854d0e
         style J fill:#dcfce7,stroke:#22c55e,color:#166534
     end
 ```
 
-## We are looking for Investors & Beta Testers
+---
 
-We are currently scaling our operations and entering our private beta phase.
-- **Investors:** If you are interested in backing the future of deterministic, air-gapped AI software engineering, let's talk.
-- **Enterprises / Teams:** Want to 10x your engineering velocity with absolute safety and IP sovereignty? Join our private beta.
+## The 5 Canonical Pillars of Enterprise Sovereign AI (EMGOS)
 
-**[CONTACT]** [Contact Form](https://codernic.dev/contact) | **[LINKEDIN]** [Codernic Dev](https://www.linkedin.com/company/codernic-dev/)
+Codernic is engineered for institutions - banks, financial entities, healthcare providers, and defense organizations - that cannot compromise on data sovereignty or code security.
+
+- **Execution:** Low-latency local SLM inference runtime running on bare-metal or private clusters for 100% air-gapped, zero-telemetry execution.
+- **Memory:** Surgical semantic retrieval and context ingestion for massive repositories, technical documentation, PDFs, Notion, and Confluence spaces.
+- **Governance:** Automated SAST AST Pull Request reviews with Ed25519-signed immutable audit trails for SOC 2, DORA, and NIS2 compliance.
+- **Optimization:** Intelligent token economy and GPU KV-cache management to maximize local throughput while suppressing context bloat.
+- **Security:** Real-time Abstract Syntax Tree (AST) interception mathematically blocks vulnerabilities, hardcoded secrets, ReDoS threats, and GDPR PII leaks before code touches disk.
 
 ---
 
-## Demonstrated Engineering & Benchmarks
+## Air-Gapped Pilot Program (Enterprise Proof of Value)
 
-Codernic's superiority is built on measurable, deterministic engineering. We don't rely on "vibe coding" or raw probabilistic generation. Instead, we enforce strict bounds on the LLM to guarantee predictable, enterprise-ready output.
+We invite enterprise engineering & security leaders to evaluate Codernic directly within their private infrastructure under a bi-directional NDA:
 
-### The Deming Engine (Execution Speed & Multi-Tenancy)
-Built in pure Rust and Vulkan, our local execution engine is engineered for maximum throughput while enforcing strict architectural constraints:
-- **Multi-Tenant Scalability:** Continuous batching router successfully handles 100+ concurrent async tasks. Supports up to **~64 simultaneous running sequences** (Batch=32) without VRAM saturation.
-- **INT8 KV Cache Optimization:** Reduces VRAM footprint by 50% (~128 KB per layer/1k tokens), yielding a **+88% capacity boost** for concurrent sequences over standard F16 caching.
-- **4,200+ TPS (Total Throughput):** Achieved during multi-tenant stress tests (Batch=32) on consumer hardware (RTX 4090 / RX 7900 XTX) with an ultra-low Average TTFT (Time To First Token) of **~145ms**.
-- **270+ TPS (Single Sequence):** Maximum burst throughput achieved via Medusa Speculative Decoding.
-- **22.91 TPS (Constrained):** Sustained throughput on local models (`Qwen2.5-Coder-1.5B` & `Llama-3.1-8B`) while continuously evaluating AST quality gates in real-time.
+- 100% Data Sovereignty: Zero cloud telemetry, zero external network calls. Deployed via K8s Distroless containers or local native runtimes.
+- Real-Time AST Quality Gates: Intercepts and blocks GDPR violations, hardcoded secrets, ReDoS vulnerabilities, and supply-chain attacks before code reaches disk.
+- WORM Audit Trails: Immutable logs signed with Ed25519 cryptography for SOC 2 & NIS2 compliance.
 
-### Pirsig Quality Gates (Zero Hallucinated Code)
-Language models hallucinate. Pirsig ensures those hallucinations never reach your disk. Using near-instant AST interception (Time To First Token), Pirsig actively blocks:
-- **Unmasked PII Leaks (GDPR):** Intercepts and scrubs sensitive logging attempts (e.g., `console.log(email)` or raw PAN exposures in Go).
-- **Supply Chain Attacks (Anti-Slopsquatting):** Prevents insertion of undocumented dependencies into package files.
-- **Monolithic "God Components":** Enforces Feature-Sliced Design (FSD) by dynamically blocking single-file dumps exceeding strict line limits.
-- **Unsafe Rust / HFT Constraints:** Preemptively blocks `.unwrap()`, `unsafe` blocks in Rust, or standard locking primitives (`std::mutex`) in lock-free C++ High-Frequency Trading code.
-- **ReDoS Vulnerabilities:** Detects and blocks catastrophic backtracking regex generation.
-
-### Ragtime Context Engine (Semantic Efficiency)
-Dumping 200,000 tokens into a cloud LLM context window is computationally disastrous, highly expensive, and ecologically irresponsible. 
-Codernic uses Ragtime, a semantic retrieval system that mathematically limits context size to surgical precision:
-- **Chunk Truncation:** Dynamically limits the context of massive state managers (e.g., 5,000-line Redux files) to 50 lines per relevant semantic chunk.
-- **Rate-Limit Economy:** Pre-evaluates prompts. Broad requests (e.g., "Refactor everything") on 200k+ LOC repositories are blocked instantly, preventing 1M token context bloat and forcing targeted, cost-effective engineering.
+[Apply for the Enterprise Pilot Program](https://codernic.dev/contact)
 
 ---
 
-## Enterprise & Advanced Capabilities (Included)
+## Reproducible Benchmarks (Single Source of Truth)
 
-Beyond deterministic code generation, the Codernic platform includes advanced systems designed for massive codebases and enterprise workflows:
-- **Hybrid Context Retrieval**: Ragtime already combines exact-keyword lexical search with mathematical Vector embeddings to navigate millions of lines of code.
-- **Hermetic Context Expansion**: An isolated fetching system (`HermeticScraper`) that retrieves external framework documentation safely, natively passing all ingested data through Pirsig DLP scans before it reaches the agent.
-- **MCP Plugin Ecosystem**: Native Model Context Protocol (MCP) integration, allowing sovereign enterprise teams to securely connect internal tools (Jira, AWS, custom internal APIs) directly into the agent's DAG.
+We believe engineering leaders shouldn't rely on static vendor marketing claims or "vibe coding". Performance and accuracy must be verifiable on your own hardware under your own security constraints.
+
+Our benchmark methodology has evolved from unit-level throughput tests to full-stack, end-to-end Enterprise Governance Benchmarks.
+
+- Run Local Benchmarks: Use the `codernic benchmark` CLI tool to execute reproducible performance tests directly on your cluster.
+- Live Benchmark Results: View our transparent, methodology-documented benchmark data: [codernic.dev/benchmarks](https://codernic.dev/benchmarks)
 
 ---
 
-### Installation
+## CLI Commands & Interface
 
-**From VSIX (Zero-Friction Local Deployment)**:
-Download the latest VSIX package from the Releases page. The payload is pre-bundled with all native Rust compiled binaries. 
+The `codernic` CLI provides direct access to the sovereign engine:
 
-```bash
-code --install-extension codernic-ext-0.6.477.vsix --force
-```
+| Command | Description |
+|---|---|
+| `codernic ask "query"` | Direct query to the local LLM (Unitary inference with RAG option) |
+| `codernic chat` | Interactive stateful session with intent routing |
+| `codernic agent --run <dag.json>` | Execute a DAG agent configuration for supervised execution |
+| `codernic analyze --path .` | Audit a repository or file against AST Security Rules |
+| `codernic code:index --path .` | Trigger semantic indexing of a codebase (RAG Engine) |
+| `codernic benchmark` | Run reproducible local performance & DLP benchmark suite |
+| `codernic vault` | Manage the Codernic Encrypted Vault (API Keys & Secrets) |
 
-### B2B Enterprise Deployments (Sovereign R&D Governance)
+---
 
-For Enterprise and B2B deployments, strict AI behavior constraints must be enforced. To guarantee zero IP leakage and deterministic code generation, Codernic utilizes a centralized Quality Gate and Semantic deduplication flow entirely offline. Contact us to learn how to deploy Codernic across your sovereign engineering teams safely.
+## Build from Source (Public Client Layers)
 
-### Build from Source (Frontend / Extension Developers)
-
-> **Note:** The Deming, Pirsig, Ragtime, and Galileus engines are proprietary and distributed as pre-compiled binaries included in the VSIX package. Building from source applies to the open-source client layers.
+> **Note:** Building from source applies to the open-source client layers. Proprietary core engines are bundled as native pre-compiled binaries in the VSIX and Enterprise packages.
 
 ```bash
 # Clone the repository
-git clone https://github.com/binaryjack/codernic.dev.git
+git clone https://github.com/Codernic-dev/codernic.dev.git
 cd codernic.dev
 
-# Run the automated multi-platform build script
+# Run automated multi-platform build script
 chmod +x build.sh
 ./build.sh
 ```
 
-## CLI Commands
-
-The `codernic` CLI provides direct access to the engine:
-
-| Command | Description |
-|---|---|
-| `codernic ask "query"` | Direct query to the LLM (Unitary inference with RAG option) |
-| `codernic chat` | Interactive session (Stateful) with intent routing |
-| `codernic agent --run <dag.json>` | Execute a DAG agent configuration for supervised execution |
-| `codernic analyze --path .` | Analyze a project (tech stack) or audit a specific file (Pirsig Engine) |
-| `codernic code:index --path .` | Trigger a complete semantic index of a repository (Ragtime) |
-| `codernic daemon start` | Start the background inference daemon |
-| `codernic huggingface-download <model>`| Download a model from HuggingFace and configure the local provider |
-| `codernic vault` | Manage the Codernic Secret Vault (API Keys) |
-
 ---
-
-## Ecosystem
-
-- **Codernic UI**: Web-based dashboard for visualizing live DAG execution and agent states (powered by Erathos).
-- **VS Code Extension**: Full IDE integration with real-time streaming feedback over MCP.
-- **MCP Integration**: Expose internal tools and context via the Model Context Protocol.
-
-For full documentation, advanced guides, and our philosophy, visit **[codernic.dev](https://codernic.dev)**.
 
 ## License
 
-**VS Code Extension**: MIT
-**Codernic UI**: AGPLv3
-**Proprietary Engines** (Deming, Pirsig, Ragtime, Galileus): Commercial License
+- VS Code Extension: MIT
+- Codernic UI: AGPLv3
+- Proprietary Engines: Commercial License
 
-Copyright (c) 2024-2026 Codernic Team.
+Copyright (c) 2024-2026 Codernic Team. All rights reserved.
